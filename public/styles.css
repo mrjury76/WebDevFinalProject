@@ -1,0 +1,95 @@
+* {
+  font: 1.3rem 'Arial', sans-serif;
+}
+
+body {
+  background: url(images/background.jpg);
+  background-size: cover;
+}
+
+div {
+  display: block;
+  background-color: #f0e68c; /* Light Khaki color */
+  margin: 15px 15px auto;
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid black;
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 10px;
+  margin: 0 auto;
+  padding: 10px;
+  width: 140px;
+  height: 50px;
+  background-color: #ad151a; /* Brownish color to resemble wood */
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #d03237;
+  scale: 1.1 ;
+}
+
+#profile {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  margin-top: 20px;
+  height: 25px;
+  width: 25px;
+}
+
+p {
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #ad151a;
+}
+
+a{ 
+  display: inline-block;
+  margin: 10px 10px;
+  border-radius: 10px;
+  background-color: #ad151a;
+  color: white;
+  font-size: 1.0rem;
+  text-align: center;
+  white-space: nowrap;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+}
+
+a:hover {
+  background-color: #b02025;
+  scale: 1.1 ;
+}
+
+div.login-container {
+  display: block;
+  margin: auto auto;
+  height: 40vh;
+  background-color: #f0e68c;
+}
+
+div.form-group {
+  display: block;
+  margin: 10px 10px;
+  padding: 10px;
+  background-color: #add8e6;
+  border-radius: 10px;
+  width: 50%;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+
