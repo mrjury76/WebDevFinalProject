@@ -43,8 +43,17 @@ button:hover {
   align-items: right;
   justify-content: right;
   margin-top: 20px;
-  height: 25px;
-  width: 25px;
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  top: 10px; 
+  right: 40px;
+}
+
+#profile:hover {
+  background-color: #ad151a;
+  border-radius: 50px;
+  scale: 1.1 ;
 }
 
 p {
