@@ -73,23 +73,24 @@
             //only displays sum and average if more than one die is rolled
             $average = $sum / $numDice;
             if ($numDice > 1){
-            echo "<p><strong>Sum of all dice:</strong> " . $sum . "</p>";
-            echo "<p><strong>Average roll:</strong> " . number_format($average, 2) . "</p>";
-            }
-            //array of mathematical averages for each die type
-            $averages = [
-            4 => 2.5,
-            6 => 3.5,
-            8 => 4.5,
-            10 => 5.5,
-            12 => 6.5,
-            20 => 10.5,
-            100 => 50.5
-            ];
-
-            if (array_key_exists($sides, $averages)) {
-            echo "<p><strong>Mathematical Average: " . $averages[$sides] . "</strong></p>";
-            echo "<br>";
+                echo "<p><strong>Sum of all dice:</strong> " . $sum . "</p>";
+                echo "<p><strong>Average roll:</strong> " . number_format($average, 2) . "</p>";
+                
+                //array of mathematical averages for each die type
+                $averages = [
+                4 => 2.5,
+                6 => 3.5,
+                8 => 4.5,
+                10 => 5.5,
+                12 => 6.5,
+                20 => 10.5,
+                100 => 50.5
+                ];
+            
+                if (array_key_exists($sides, $averages)) {
+                echo "<p><strong>Mathematical Average: " . $averages[$sides] . "</strong></p>";
+                echo "<br>";
+                }
             }
         
         }
