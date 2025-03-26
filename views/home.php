@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="../public/styles.css">
 </head>
 <body>
-    <header>
+<header>
         <div class="container">
             <h1>D&D Interactive</h1>
-            <a href="characters.html">Characters</a></li>
-            <a href="dice.html">Dice</a></li>
-            <a href="journal.html">Journal</a>
-            <a href="npnGenerator.html">NPC Generator</a></li>
-            <a href="gameTables.html">Game Tables</a></li>
-            <a href="editCharacter.html">Edit Character</a></li>
+            <a href="home.php">Characters</a></li>
+            <a href="dice.php">Dice</a></li> 
+            <a href="journal.php">Journal</a></li> 
+            <a href="npnGenerator.php">NPC Generator</a></li>
+            <a href="gameTables.php">Game Tables</a></li>
+            <a href="editCharacter.php">Edit Character</a></li>
         </div>
     </header>
 
