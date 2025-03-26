@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="../public/styles.css">
 </head>
 <body>
-    <header>
-        <h1>My Journal</h1>
-    </header>
+    <?php include 'header.php'; ?>
     <main>
         <div>
             <h2>New Entry</h2>
@@ -25,5 +23,6 @@
         </div>
 
     </main>
+    <?php include 'footer.php'; ?>
 </body>
 </html>

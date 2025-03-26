@@ -8,17 +8,7 @@
 
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>D&D Interactive</h1>
-            <a href="home.php">Characters</a></li>
-            <a href="dice.php">Dice</a></li> 
-            <a href="journal.php">Journal</a></li> 
-            <a href="npnGenerator.php">NPC Generator</a></li>
-            <a href="gameTables.php">Game Tables</a></li>
-            <a href="editCharacter.php">Edit Character</a></li>
-        </div>
-    </header>
+    <?php include 'header.php'; ?>;
     <div>
         <h1>Dice Roller</h1>
         <form method="post" action="">
@@ -99,8 +89,6 @@
         ?>
     </div>
 
-    <footer>
-        <p>Patrick Thrower</p>
-    </footer>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
