@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +9,7 @@
 <body>
     <div class="login-container">
         <h1>Sign In</h1>
-        <?php if (isset($error)): ?>
-            <p class="error"><?php echo $error; ?></p>
-        <?php endif; ?>
-        <form action="" method="post">
+        <form action="controller.php" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -23,7 +19,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Sign In</button>
-            <button type="button" onclick="window.location.href='/register.php'">Register</button>
+            <button type="button">Register</button>
         </form>
     </div>
 </body>
@@ -40,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $submittedPassword = $_POST['password'];
 
     // Include the controller file
-    require_once '../controller.php';
+    require_once '/controller.php';
 
     if ($isAuthenticated) {
         // Set session variables

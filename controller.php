@@ -1,5 +1,4 @@
 <?php
-    // In controller.php,
     
     $page = $_POST['page'];
     if ($page === 'StartPage') {  // If the data came from StartPage
