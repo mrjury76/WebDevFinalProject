@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="../public/styles.css">
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="icon" href="public/images/incon.webp" type="image/webp">
+
 </head>
 <body>
     <div class="login-container">
@@ -31,30 +33,11 @@ session_start();
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the submitted form data
-    $submittedUsername = $_POST['username'];
-    $submittedPassword = $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     // Include the controller file
-    require_once '/controller.php';
+    require '/controller.php';
 
-    if ($isAuthenticated) {
-        // Set session variables
-        $_SESSION['username'] = $submittedUsername;
-        // Redirect to a protected page
-        header('Location: /dashboard.php');
-        exit;
-    } else {
-        $error = 'Invalid username or password';
-    }
-    if ($submittedUsername === $username && $submittedPassword === $password) {
-        // Set session variables
-        $_SESSION['username'] = $submittedUsername;
-        // Redirect to a protected page
-        header('Location: /dashboard.php');
-        exit;
-    } else {
-        $error = 'Invalid username or password';
-    }
 }
 ?>
