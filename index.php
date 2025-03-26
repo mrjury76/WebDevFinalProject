@@ -24,7 +24,6 @@
             <a href="views\register.php">Register</a>
         </form>
     </div>
-    <?php include 'footer.php'; ?>
 </body>
 </html>
 

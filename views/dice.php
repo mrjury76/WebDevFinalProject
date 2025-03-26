@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dice Roller</title>
     <link rel="stylesheet" href="../public/styles.css">
+    <link rel="icon" href="public/images/incon.webp" type="image/webp">
+
 
 </head>
 <body>
