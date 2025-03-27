@@ -6,12 +6,13 @@
     <title>Register</title>
     <link rel="stylesheet" href="../public/styles.css">
     <link rel="icon" href="public/images/incon.webp" type="image/webp">
-
 </head>
 <body>
     <div class="container">
         <h2>Register</h2>
         <form action="controller.php" method="POST">
+            <input type="hidden" name="page" value="StartPage">
+            <input type="hidden" name="command" value="Join">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -30,8 +31,18 @@
             </div>
             <button type="submit">Register</button>
         </form>
-        <br>
     </div>
+    <script src="../public/scripts.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
     <?php include 'footer.php'; ?>
 </body>
 </html>

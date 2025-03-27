@@ -18,9 +18,8 @@ div {
   text-align: center;
 }
 
-/* button {
+button {
   display: block;
-  margin: 10px;
   margin: 0 auto;
   padding: 10px;
   width: 140px;
@@ -36,28 +35,10 @@ div {
 button:hover {
   background-color: #d03237;
   scale: 1.1 ;
-} */
- /* --------------------------------------------------------- */
-button {
-  display: block;
-  margin: 10px auto;
-  padding: 12px 20px;
-  background-color: #ad151a;
-  color: white;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-button:hover {
-  background-color: #d03237;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-/* //------------------------------------------------------------------ */
+
+
 .dice-buttons {
   display: flex;
   justify-content: center;
@@ -111,7 +92,7 @@ a{
 }
 
 a:hover {
-  background-color: #b02025;
+  background-color: #d03237;
   scale: 1.1 ;
 }
 

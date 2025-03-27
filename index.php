@@ -12,6 +12,8 @@
     <div class="login-container">
         <h1>Sign In</h1>
         <form action="controller.php" method="post">
+            <input type="hidden" name="page" value="StartPage">
+            <input type="hidden" name="command" value="SignIn">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -21,8 +23,9 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Sign In</button>
-            <a href="views\register.php">Register</a>
+            <!-- <a href="views\register.php">Register</a> -->
         </form>
+        <p style="position: relative; bottom: 0; text-align: center;">Don't have an account? <a href="views/register.php">Register</a></p>
     </div>
 </body>
 </html>
@@ -31,13 +34,15 @@
 // Start the session
 session_start();
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+// // Check if the form is submitted
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//     $_POST['page'] = 'StartPage';
+//     $_POST['command'] = 'SignIn';
+//     $_POST['username'] = $username;
+//     $_POST['password'] = $password;
 
-    // Include the controller file
-    require '/controller.php';
+//     // Include the controller file
+//     require '/controller.php';
 
-}
+// }
 ?>
