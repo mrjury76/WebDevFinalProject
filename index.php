@@ -1,3 +1,8 @@
+<?php // Start the session
+session_start();
+include '/controller.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,18 +36,5 @@
 </html>
 
 <?php
-// Start the session
-session_start();
 
-// // Check if the form is submitted
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $_POST['page'] = 'StartPage';
-//     $_POST['command'] = 'SignIn';
-//     $_POST['username'] = $username;
-//     $_POST['password'] = $password;
-
-//     // Include the controller file
-//     require '/controller.php';
-
-// }
 ?>
