@@ -13,36 +13,32 @@
         <form action="controller.php" method="POST">
             <input type="hidden" name="page" value="StartPage">
             <input type="hidden" name="command" value="Join">
+
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
             </div>
+
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
             </div>
+
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
+
             <div class="form-group">
                 <label for="confirm_password">Confirm Password:</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
+            
             <button type="submit">Register</button>
+            <br>
         </form>
     </div>
-    <script src="../public/scripts.js"></script>
-    <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-            if (password !== confirmPassword) {
-                event.preventDefault();
-                alert('Passwords do not match!');
-            }
-        });
-    </script>
+
     <?php include 'footer.php'; ?>
 </body>
 </html>

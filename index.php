@@ -1,3 +1,19 @@
+<?php
+session_start(); // Start session at the very beginning
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once 'model.php';
+
+    if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
+        $_SESSION['username'] = $_POST['username']; // Store username in session
+        header("Location: home.php");
+        exit();
+    } else {
+        $error = "Invalid username or password.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,43 +22,34 @@
     <title>Sign In</title>
     <link rel="stylesheet" href="public/styles.css">
     <link rel="icon" href="public/images/incon.webp" type="image/webp">
-
 </head>
 <body>
     <div class="login-container">
         <h1>Sign In</h1>
-        <form action="controller.php" method="post">
+        <form action="index.php" method="post">
             <input type="hidden" name="page" value="StartPage">
             <input type="hidden" name="command" value="SignIn">
+            
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
             </div>
+
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
+
             <button type="submit">Sign In</button>
-            <!-- <a href="views\register.php">Register</a> -->
         </form>
-        <p style="position: relative; bottom: 0; text-align: center;">Don't have an account? <a href="views/register.php">Register</a></p>
+
+        <?php if (isset($error)): ?>
+            <p style="color: red;"><?php echo $error; ?></p>
+        <?php endif; ?>
+
+        <p style="position: relative; bottom: 0; text-align: center;">
+            Don't have an account? <a href="views/register.php">Register</a>
+        </p>
     </div>
 </body>
 </html>
-
-<?php
-// Start the session
-session_start();
-
-// // Check if the form is submitted
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $_POST['page'] = 'StartPage';
-//     $_POST['command'] = 'SignIn';
-//     $_POST['username'] = $username;
-//     $_POST['password'] = $password;
-
-//     // Include the controller file
-//     require '/controller.php';
-
-// }
-?>

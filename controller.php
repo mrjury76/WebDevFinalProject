@@ -1,47 +1,45 @@
 <?php
     include 'model.php';
 
-    $page = $_POST['page'];
-    $command = $_POST['command'];
-
-    if (empty($page)) {  
-        include("index.php"); 
+    if (empty($_POST['page'])) {  
+        header("Location: index.php"); 
         exit();
     } 
 
-    elseif ($page === 'StartPage') {  // If the data came from StartPage
+    elseif ($_POST['page'] === 'StartPage') {  
         
-        switch ($command) {
-            case 'SignIn':  // SignIn case
-                echo 'Username = ' . $_POST['username'] . ', Password = ' . $_POST['password'] . '<br>';
-                
-                if (isValid($_POST['username'], $_POST['password'])) {  // isValid() is defined in model.php
-                    echo 'Valid username and password<br>';
-                    include 'home.php';
-                } else {
-                    echo 'Invalid username and password<br>';
+        switch ($_POST['command']) {
+            case 'SignIn':
+                if (empty($_POST['username']) || empty($_POST['password'])) {
+                    echo "Username and password are required!<br>";
+                    exit();
                 }
                 
-                exit();  // or break when there is something more to do after switch
+                if (isValid($_POST['username'], $_POST['password'])) {
+                    header("Location: home.php");
+                    exit();
+                } else {
+                    echo "Invalid username or password.<br>";
+                    exit();
+                }
             
             case 'Join':  
-                // echo 'Sign-up functionality is not implemented yet.<br>';
-                createUser($_POST['username'], $_POST['password'], $_POST['email']);  // createUser() is defined in model.php
-                include 'home.php';
+                if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
+                    echo "All fields are required!<br>";
+                    exit();
+                }
+
+                createUser($_POST['username'], $_POST['password'], $_POST['email']);
+                header("Location: home.php");
                 exit();
             
-            // case 'ForgotPassword':
-            //     // Handle password reset logic here
-            //     echo 'Forgot password functionality is not implemented yet.<br>';
-            //     exit();
-            
             default:
-                echo 'Unknown command<br>';
+                echo "Unknown command<br>";
                 exit();
         }
     }
     else {
-        include 'index.php';
+        header("Location: index.php");
+        exit();
     }
-
 ?>

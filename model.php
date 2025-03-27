@@ -1,59 +1,52 @@
-username VARCHAR(30) NOT NULL,
-
 <?php
-    function createUser($username, $pwd, $email){ 
-        $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            return;
-        }
-    
-        $sql = "CREATE TABLE IF NOT EXISTS Users (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(30) NOT NULL UNIQUE,
-            pwd VARCHAR(255) NOT NULL,
-            email VARCHAR(50) NOT NULL UNIQUE,
-            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        )";
-    
-        if (mysqli_query($conn, $sql)) {
-            echo "Table Users created successfully";
-        } else {
-            echo "Error creating table: " . mysqli_error($conn);
-        }
-    
-        $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO Users (username, pwd) VALUES ('$username', '$hashedPwd')";
-        if (mysqli_query($conn, $sql)) {
-            echo "New user created successfully";
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
-    
-        mysqli_close($conn);
-    
+function createUser($username, $pwd, $email) { 
+    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        return;
     }
 
-    function isValid($u, $p) {
-        // $servername = "localhost";
-        // $username = "w3pthrower";
-        // $password = "w3pthrower136";
-        // $dbname = "C354_w3pthrower";
+    // Escape user input to prevent SQL injection
+    $username = mysqli_real_escape_string($conn, $username);
+    $email = mysqli_real_escape_string($conn, $email);
+    $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-        $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
-        if (mysqli_connect_errno())  // or if (!$conn)
-            echo "Failed to connect to C354_test: " . mysqli_connect_error();
-        else
-            echo "Succeeded to connect to C354_test";
-        //code here
-
-        if (mysqli_query($conn, $sql))
-            echo 'Table Persons created';
-        else
-            echo 'Error creating table: ' . mysqli_error($conn);
+    // Insert user into table
+    $sql = "INSERT INTO Users (username, pwd, email) VALUES ('$username', '$hashedPwd', '$email')";
+    if (mysqli_query($conn, $sql)) {
         mysqli_close($conn);
-
-
-        return $isValid;
+        header("Location: home.php");
+        exit(); // Prevent further execution
+    } else {
+        echo "Error: " . mysqli_error($conn);
     }
+
+    mysqli_close($conn);
+}
+
+function isValid($u, $p) {
+    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        return false;
+    }
+
+    // Escape username input
+    $u = mysqli_real_escape_string($conn, $u);
+
+    $sql = "SELECT pwd FROM Users WHERE username='$u'";
+    $result = mysqli_query($conn, $sql);
+    
+    if ($result && mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($p, $row['pwd'])) {
+            mysqli_close($conn);
+            header("Location: home.php");
+            exit();
+        }
+    }
+
+    mysqli_close($conn);
+    return false;
+}
 ?>
