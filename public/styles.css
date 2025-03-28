@@ -29,7 +29,7 @@ div.npc li {
 
 button {
   display: block;
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 10px;
   width: 140px;
   height: 50px;
@@ -120,7 +120,7 @@ a:hover {
 div.login-container {
   display: block;
   margin: auto auto;
-  height: 500px;
+  height: 50vh;
 }
 
 div.form-group {
@@ -160,4 +160,9 @@ ul {
 ul li {
   display: inline-block;
   margin: 0 10px;
+}
+
+#remember_me {
+  margin: 20px;
+
 }

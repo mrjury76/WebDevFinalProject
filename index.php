@@ -1,5 +1,10 @@
-<?php session_start(); ?>
-
+<?php 
+    if (isset($_COOKIE['username'])) {
+        include 'home.php';
+        exit();
+    }
+?>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,28 +31,16 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <label for="remember_me">Remember Me:</label>
-            <input type="checkbox" name="remember_me" id="remember_me">
-
             <button type="submit">Sign In</button>
         </form>
 
         <p>Don't have an account?</p>
-        <form method="post" action="controller.php">
-            <button id="header" type="submit" name="command" value="Register">Register</button>
+        <form action="controller.php" method="post">
+            <input type="hidden" name="page" value="StartPage">
+            <input type="hidden" name="command" value="Register">
+            <button id="header" type="submit">Register</button>
         </form>
     </div>
-    <!-- <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        require 'controller.php';
-
-        if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
-            $_SESSION['username'] = $_POST['username'];
-            exit();
-        } else {
-            $error = "Invalid username or password.";
-        }
-    }
-?> -->
+    
 </body>
 </html>

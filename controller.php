@@ -14,7 +14,10 @@ session_start();
 
 
 if ($page === 'StartPage') {
-        
+    if (!isset($_SESSION['signedin'])) {
+        include 'index.php';
+        exit;
+    }
         switch ($command) {
             case 'SignIn':
                 $username = $_POST['username'];
@@ -24,9 +27,7 @@ if ($page === 'StartPage') {
                     setcookie('username', $username, time() + 24 * 60 * 60);
                     $_SESSION['signedin'] = 'YES';
                     $_SESSION['username'] = $username;
-                    echo "<script>alert('Welcome!')</script>";
                     if ($_SESSION['signedin'] === 'YES') {
-                        echo "<script>alert('Your SIGNED IN!')</script>";
                     }
                     include 'home.php';
                     exit();

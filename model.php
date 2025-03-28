@@ -40,7 +40,6 @@ function isValid($u, $p) {
             $row = mysqli_fetch_assoc($result);
             if (password_verify($p, $row['pwd'])) {
                 mysqli_close($conn);
-                echo "<script>alert('Youve reached the isvalid function')</script>";
                 return true;
             }
         }

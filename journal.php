@@ -1,4 +1,4 @@
-<!-- <?php session_start(); ?> -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,6 @@
     <title>Journal</title>
     <link rel="stylesheet" href="public/styles.css">
     <link rel="icon" href="public/images/incon.webp" type="image/webp">
-
 </head>
 <body>
     <?php include 'header.php'; ?>
@@ -18,6 +17,7 @@
             <form action="controller.php" method="post">
                 <input type="hidden" name="page" value="Journal">
                 <input type="hidden" name="command" value="Submit">
+                
                 <label for="title">Title:</label>
                 <input type="text" id="title" name="title" required>
 
