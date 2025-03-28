@@ -1,6 +1,6 @@
-<link rel="icon" href="images/icon.webp" type="image/webp">
+<link rel="icon" href="public/images/icon.webp" type="image/webp">
 <?php
-require_once 'model.php';
+include 'model.php';
 
     if (empty($_POST['page'])) {  
         include 'index.php'; 
@@ -24,17 +24,17 @@ require_once 'model.php';
             case 'Join':  
                 if($_POST['password'] !== $_POST['confirm_password']) {
                     echo "<script>alert('Passwords do not match!');</script>";
-                    include 'views/register.php';
+                    include 'register.php';
                     exit();
                 }
                 elseif (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
                     echo "All fields are required!<br>";
-                    include 'views/register.php';
+                    include 'register.php';
                     exit();
                 }
                 else{
                     createUser($_POST['username'], $_POST['password'], $_POST['email']);
-                    include 'views/home.php';
+                    include 'home.php';
                 }
                 exit();
             
@@ -102,7 +102,7 @@ require_once 'model.php';
     elseif ($_POST['page'] === 'Journal') {
         include 'journal.php';
         switch ($_POST['command']) {
-            case 'Submit':
+            case 'Sub   mit':
                 if (empty($_POST['title']) || empty($_POST['content'])) {
                     echo "All fields are required!<br>";
                     exit();
@@ -129,6 +129,38 @@ require_once 'model.php';
             
             default:
                 echo "<script>alert(Unknown command)</script>";
+                exit();
+        }
+    }
+
+    elseif ($_POST['page'] === 'Header') {
+        switch ($_POST['command']) {
+            case 'Characters':
+                include 'home.php';
+                exit();
+            
+            case 'Dice':
+                include 'dice.php';
+                exit();
+            
+            case 'Journal':
+                include 'journal.php';
+                exit();
+            
+            case 'NpcGenerator':
+                include 'npcGenerator.php';
+                exit();
+            
+            case 'GameTables':
+                include 'gameTables.php';
+                exit();
+            
+            case 'EditCharacter':
+                include 'editCharacter.php';
+                exit();
+            
+            default:
+                echo "Unknown command<br>";
                 exit();
         }
     }

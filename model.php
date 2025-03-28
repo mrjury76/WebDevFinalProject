@@ -40,7 +40,7 @@ function isValid($u, $p) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($p, $row['pwd'])) {
             mysqli_close($conn);
-            header("Location: home.php");
+            session_start();
             exit();
         }
     }
@@ -75,7 +75,7 @@ function generateNPC() {
     $motivation = getRandomValue($conn, 'motivation', 'NPCs');
 
     echo "<div class='npc'>";
-    echo "<h1>Random NPC:</h1>";
+    echo "<h1 class='npc'>Random NPC:</h1>";
     echo "<ul>";
     echo "<li><p>First Name:</p> $fname</li>";
     echo "<li><p>Last Name:</p> $lname</li>";
@@ -89,6 +89,21 @@ function generateNPC() {
     echo "</div>";
 
     mysqli_close($conn);
+}
+
+function createEntry() {
+    global $conn;
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $username = $_SESSION['username'];
+    $sql = "INSERT INTO Journal (title, content, username) VALUES ('$title', '$content', '$username')";
+    if (mysqli_query($conn, $sql)) {
+        mysqli_close($conn);
+        include 'journal.php';
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 }
 
 ?>

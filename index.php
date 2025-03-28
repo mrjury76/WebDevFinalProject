@@ -1,17 +1,21 @@
 <?php
-session_start();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require 'controller.php';
-
-    if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
-        $_SESSION['username'] = $_POST['username']; // Store username in session
-        header("Location: home.php");
-        exit();
-    } else {
-        $error = "Invalid username or password.";
-    }
+// Check if session has already been started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
+
+
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     require 'controller.php';
+
+//     if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
+//         $_SESSION['username'] = $_POST['username']; // Store username in session
+//         header("Location: home.php");
+//         exit();
+//     } else {
+//         $error = "Invalid username or password.";
+//     }
+// }
 ?>
 
 <!DOCTYPE html>

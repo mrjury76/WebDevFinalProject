@@ -89,7 +89,7 @@ p {
   color: #ad151a;
 }
 
-h1 {
+h1.npc {
   font-size: 2.0rem;
   margin: 0;
   padding: 10px;
@@ -97,7 +97,7 @@ h1 {
   color: #ad151a;
 }
 
-a{ 
+button#header { 
   display: inline-block;
   margin: 10px 10px;
   border-radius: 10px;
@@ -105,10 +105,10 @@ a{
   color: white;
   font-size: 1.0rem;
   text-align: center;
-  line-height: 45px;
+  /* line-height: 45px; */
   white-space: nowrap;
-  width: 150px;
-  height: 45px;
+  width: 160px;
+  height: 60px;
   cursor: pointer;
 }
 

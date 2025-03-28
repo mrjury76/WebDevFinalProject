@@ -14,6 +14,8 @@
         <div>
             <h2>New Entry</h2>
             <form action="controller.php" method="post">
+                <input type="hidden" name="page" value="Journal">
+                <input type="hidden" name="command" value="Submit">
                 <label for="title">Title:</label>
                 <input type="text" id="title" name="title" required>
 
