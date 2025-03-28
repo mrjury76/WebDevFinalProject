@@ -1,8 +1,9 @@
 <link rel="icon" href="images/icon.webp" type="image/webp">
 <?php
 require_once 'model.php';
+
     if (empty($_POST['page'])) {  
-        header("Location: index.php"); 
+        include 'index.php'; 
         exit();
     } 
 
@@ -127,11 +128,10 @@ require_once 'model.php';
                 exit();
             
             default:
-                echo "Unknown command<br>";
+                echo "<script>alert(Unknown command)</script>";
                 exit();
         }
     }
-
 
     else {
         include 'index.php';

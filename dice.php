@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    <?php include 'header.php'; ?>;
+    <?php include 'header.php'?>;
     <div>
         <h1>Dice Roller</h1>
         <form method="post" action="controller.php">
@@ -23,11 +23,9 @@
             <label for="sides">Number of sides per die:</label>
             <input type="number" id="sides" name="sides" min="2" required>
 
-            <button type="submit">Roll</button>
-        </form>
-
+            
             <div class="dice-buttons">
-                <button type="submit" onclick="setDice(2); setNumber(1)">Coin</button>
+                <button type="button" onclick="setDice(2); setNumber(1)">Coin</button>
                 <button type="button" onclick="setDice(4)">D4</button>
                 <button type="button" onclick="setDice(6)">D6</button>
                 <button type="button" onclick="setDice(8)">D8</button>
@@ -36,6 +34,8 @@
                 <button type="button" onclick="setDice(20)">D20</button>
                 <button type="button" onclick="setDice(100)">D100</button>
             </div>
+            <button type="submit">Roll</button>
+        </form>
             <script>
                 function setDice(sides) {
                     document.getElementById('sides').value = sides;
@@ -49,6 +49,6 @@
             <br>
     </div>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.php'?>
 </body>
 </html>

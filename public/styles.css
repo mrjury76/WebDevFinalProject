@@ -10,15 +10,22 @@ body {
 
 div {
   display: block;
-  background-color: #f0e68c; /* Light Khaki color */
+  background-color: #f0e68c;
+  /* border: 1px solid black; */
   border-radius: 10px;
   margin: 15px 15px auto;
   width: 65%;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid black;
   text-align: center;
+  padding: 10px;
 }
+
+div.npc li {
+  display: block;
+  padding: 5px 0; 
+}
+
 
 button {
   display: block;
@@ -27,6 +34,7 @@ button {
   width: 140px;
   height: 50px;
   background-color: #ad151a;
+  border: none;
   color: white;
   font-size: 1.1rem;
   border-radius: 30px;
@@ -76,7 +84,15 @@ button#NPC {
 p {
   font-size: 1.4rem;
   margin: 0;
-  padding: 0;
+  padding: 10px;
+  text-align: center;
+  color: #ad151a;
+}
+
+h1 {
+  font-size: 2.0rem;
+  margin: 0;
+  padding: 10px;
   text-align: center;
   color: #ad151a;
 }
@@ -127,6 +143,7 @@ footer {
   text-align: center;
   position: fixed;
   bottom: 0;
+  left:0;
   width: 100%;
 }
 

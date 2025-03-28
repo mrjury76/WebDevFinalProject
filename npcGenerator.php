@@ -12,7 +12,9 @@
     <div>
         <h1>NPC Generator</h1>
         <p>Generate a random NPC for your campaign!</p>
-        <form action="npcGenerator.php" method="post">
+        <form action="controller.php" method="post">
+            <input type="hidden" name="page" value="NPC">
+            <input type="hidden" name="command" value="Generate">
             <button id="NPC" type="submit">Generate NPC</button>
         </form>
         <br>
