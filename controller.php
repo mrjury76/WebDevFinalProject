@@ -96,8 +96,46 @@ require_once 'model.php';
         }
 
     }
+
+    elseif ($_POST['page'] === 'Journal') {
+        include 'journal.php';
+        switch ($_POST['command']) {
+            case 'Submit':
+                if (empty($_POST['title']) || empty($_POST['content'])) {
+                    echo "All fields are required!<br>";
+                    exit();
+                }
+                else {
+                    createEntry($_POST['title'], $_POST['content']);
+                    include 'journal.php';
+                    exit();
+                }
+            
+            default:
+                echo "Unknown command<br>";
+                exit();
+        }
+    }
+
+    elseif ($_POST['page'] === 'NPC') {
+        // include 'npcGenerator.php';
+
+        switch ($_POST['command']) {
+            case 'Generate':
+                generateNPC();
+                include 'npcGenerator.php';
+                exit();
+            
+            default:
+                echo "Unknown command<br>";
+                exit();
+        }
+        exit();
+    }
+
+
     else {
-        header("Location: index.php");
+        include 'index.php';
         exit();
     }
 ?>

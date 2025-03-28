@@ -7,7 +7,6 @@
     <title>D&D Homepage</title>
     <link rel="stylesheet" href="public/styles.css">
     <link rel="icon" href="images/icon.webp" type="image/png">
-
 </head>
 <body>
     <?php include 'header.php'; ?>;
