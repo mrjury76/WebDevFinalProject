@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D Homepage</title>
-    <link rel="stylesheet" href="../public/styles.css">
-    <link rel="icon" href="../public/images/icon.webp" type="image/png">
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="icon" href="images/icon.webp" type="image/png">
 
 </head>
 <body>

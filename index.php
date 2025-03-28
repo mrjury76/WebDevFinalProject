@@ -2,7 +2,7 @@
 session_start(); // Start session at the very beginning
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once 'model.php';
+    require_once 'controller.php';
 
     if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
         $_SESSION['username'] = $_POST['username']; // Store username in session
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <h1>Sign In</h1>
-        <form action="index.php" method="post">
+        <form action="controller.php" method="post">
             <input type="hidden" name="page" value="StartPage">
             <input type="hidden" name="command" value="SignIn">
             
@@ -42,10 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit">Sign In</button>
         </form>
-
-        <?php if (isset($error)): ?>
-            <p style="color: red;"><?php echo $error; ?></p>
-        <?php endif; ?>
 
         <p style="position: relative; bottom: 0; text-align: center;">
             Don't have an account? <a href="views/register.php">Register</a>

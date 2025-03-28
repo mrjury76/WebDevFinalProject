@@ -1,5 +1,6 @@
+<link rel="icon" href="images/icon.webp" type="image/webp">
 <?php
-
+require_once 'model.php';
     if (empty($_POST['page'])) {  
         header("Location: index.php"); 
         exit();
@@ -9,13 +10,9 @@
         
         switch ($_POST['command']) {
             case 'SignIn':
-                if (empty($_POST['username']) || empty($_POST['password'])) {
-                    echo "Username and password are required!<br>";
-                    exit();
-                }
                 
                 if (isValid($_POST['username'], $_POST['password'])) {
-                    header("Location: home.php");
+                    include 'home.php';
                     exit();
                 } else {
                     echo "Invalid username or password.<br>";
@@ -23,14 +20,20 @@
                 }
             
             case 'Join':  
-                if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-                    echo "All fields are required!<br>";
-                    include 'register.php';
+                if($_POST['password'] !== $_POST['confirm_password']) {
+                    echo "<script>alert('Passwords do not match!');</script>";
+                    include 'views/register.php';
                     exit();
                 }
-
-                createUser($_POST['username'], $_POST['password'], $_POST['email']);
-                include 'home.php';
+                elseif (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
+                    echo "All fields are required!<br>";
+                    include 'views/register.php';
+                    exit();
+                }
+                else{
+                    createUser($_POST['username'], $_POST['password'], $_POST['email']);
+                    include 'views/home.php';
+                }
                 exit();
             
             default:
@@ -40,11 +43,13 @@
     }
 
     elseif($_POST['page'] === 'Dice'){
+        include 'dice.php';
         switch ($_POST['command']) {
             case 'Roll':
                     $sum = 0;
                     $numDice = $_POST['dice'];
                     $sides = $_POST['sides'];
+                    echo "<div>";
                     echo "<h2>Results:</h2>";
                     echo "<ul>";
                     for ($i = 0; $i < $numDice; $i++) {
@@ -78,10 +83,11 @@
                         if (array_key_exists($sides, $averages)) {
                         echo "<p><strong>Mathematical Average: " . $averages[$sides] . "</strong></p>";
                         echo "<br>";
+                        echo "</div>";
                         }
                     }
                 
-                include 'dice.php';
+                
                 exit();
             
             default:
