@@ -1,7 +1,7 @@
 <?php
     $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (!$conn) {
-        die('Could not connect: ' . mysqli_connect_error());
+        echo 'Could not connect: ' . mysqli_connect_error();
     }
     
 function createUser($username, $pwd, $email) { 
@@ -45,52 +45,26 @@ function isValid($u, $p) {
         }
     }
     else{
-        echo "<script>alert('Invalid username or password!')</script>";
         mysqli_close($conn);
         return false;
     }
 }
 
-function generateNPC() {
+function getRandomValue($column) {
     $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        return;
-    }
-
-    function getRandomValue($conn, $column, $table) {
-        $sql = "SELECT `$column` FROM `$table` ORDER BY RAND() LIMIT 1";
+    } else {
+        $sql = "SELECT `$column` FROM NPCs ORDER BY RAND() LIMIT 1";
         $result = mysqli_query($conn, $sql);
+        
         if ($result && mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
             return $row[$column];
         }
-        return "Unknown";
     }
-
-    $fname = getRandomValue($conn, 'fname', 'NPCs');
-    $lname = getRandomValue($conn, 'lname', 'NPCs');
-    $race = getRandomValue($conn, 'race', 'NPCs');
-    $class = getRandomValue($conn, 'class', 'NPCs');
-    $quirk = getRandomValue($conn, 'quirk', 'NPCs');
-    $alignment = getRandomValue($conn, 'alignment', 'NPCs');
-    $motivation = getRandomValue($conn, 'motivation', 'NPCs');
-
-    echo "<div class='npc'>";
-    echo "<h1 class='npc'>Random NPC:</h1>";
-    echo "<ul>";
-    echo "<li><p>First Name:</p> $fname</li>";
-    echo "<li><p>Last Name:</p> $lname</li>";
-    echo "<li><p>Race:</p> $race</li>";        
-    echo "<li><p>Class:</p> $class</li>";
-    echo "<li><p>Quirk:</p> $quirk</li>";
-    echo "<li><p>Alignment:</p> $alignment</li>";
-    echo "<li><p>Motivation:</p> $motivation</li>";
-    echo "<br>";
-    echo "</ul>";
-    echo "</div>";
-
     mysqli_close($conn);
+    return null;
 }
 
 function createEntry($title, $content) {

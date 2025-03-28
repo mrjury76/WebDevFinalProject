@@ -138,7 +138,25 @@ if ($page === 'StartPage') {
         switch ($_POST['command']) {
             case 'Generate':
                 include 'npcGenerator.php';
-                generateNPC();
+                $columns = ['fname', 'lname', 'race', 'class', 'quirk', 'alignment', 'motivation'];
+                $npc = [];
+
+                foreach ($columns as $column) {
+                    $npc[$column] = getRandomValue($column);
+                }
+
+                echo "<div class='npc'>";
+                echo "<h1 class='npc'>Random NPC:</h1>";
+                echo "<ul>";
+                echo "<li><p>First Name:</p> " . $npc['fname'] . "</li>";
+                echo "<li><p>Last Name:</p> " . $npc['lname'] . "</li>";
+                echo "<li><p>Race:</p> " . $npc['race'] . "</li>";
+                echo "<li><p>Class:</p> " . $npc['class'] . "</li>";
+                echo "<li><p>Quirk:</p> " . $npc['quirk'] . "</li>";
+                echo "<li><p>Alignment:</p> " . $npc['alignment'] . "</li>";
+                echo "<li><p>Motivation:</p> " . $npc['motivation'] . "</li>";
+                echo "</ul>";
+                echo "</div>";
                 exit();
             
             default:
