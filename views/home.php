@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D Homepage</title>
     <link rel="stylesheet" href="../public/styles.css">
-    <link rel="icon" href="public/images/incon.webp" type="image/webp">
+    <link rel="icon" href="../public/images/icon.webp" type="image/png">
 
 </head>
 <body>
@@ -19,7 +19,7 @@
         </div>
     </main>
 
-    <script src="../public/script.js"></script>
+    <!-- <script src="../public/script.js"></script> -->
 
     <?php include 'footer.php'; ?>
 </body>
