@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start(); // Start session at the very beginning
 
@@ -12,6 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Invalid username or password.";
     }
 }
+=======
+<?php // Start the session
+session_start();
+include '/controller.php';
+>>>>>>> ae90175b90c8ac26dc78f38c7a77a308eeff38ad
 ?>
 
 <!DOCTYPE html>
@@ -53,3 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+<<<<<<< HEAD
+=======
+
+<?php
+
+?>
+>>>>>>> ae90175b90c8ac26dc78f38c7a77a308eeff38ad
