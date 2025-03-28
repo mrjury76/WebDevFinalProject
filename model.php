@@ -1,8 +1,13 @@
 <?php
+    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
+    if (!$conn) {
+        die('Could not connect: ' . mysqli_connect_error());
+    }
+    
 function createUser($username, $pwd, $email) { 
+    global $conn;
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         return;
@@ -28,9 +33,6 @@ function isValid($u, $p) {
         return false;
     }
 
-    // Escape username input
-    $u = mysqli_real_escape_string($conn, $u);
-
     $sql = "SELECT pwd FROM Users WHERE username='$u'";
     $result = mysqli_query($conn, $sql);
     
@@ -48,7 +50,7 @@ function isValid($u, $p) {
 }
 
 function generateNPC() {
-    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
+    global $conn;
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         return;
@@ -62,9 +64,13 @@ function generateNPC() {
         echo "<div>";
         echo "<h2>NPC:</h2>";
         echo "<ul>";
-        echo "<li>Name: " . $row['name'] . "</li>";
+        echo "<li>First Name: " . $row['fname'] . "</li>";
+        echo "<li>Last Name: " . $row['lname'] . "</li>";
+        echo "<li>Race: " . $row['race'] . "</li>";        
         echo "<li>Class: " . $row['class'] . "</li>";
         echo "<li>Quirk: " . $row['quirk'] . "</li>";
+        echo "<li>Alignment: " . $row['alignment'] . "</li>";
+        echo "<li>Motivation: " . $row['motivation'] . "</li>";
         echo "</ul>";
         echo "</div>";
     }

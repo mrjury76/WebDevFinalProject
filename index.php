@@ -1,8 +1,8 @@
 <?php
-session_start(); // Start session at the very beginning
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once 'controller.php';
+    require 'controller.php';
 
     if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
         $_SESSION['username'] = $_POST['username']; // Store username in session
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <p style="position: relative; bottom: 0; text-align: center;">
-            Don't have an account? <a href="views/register.php">Register</a>
+            Don't have an account? <a href="register.php">Register</a>
         </p>
     </div>
 </body>

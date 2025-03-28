@@ -15,7 +15,8 @@ require_once 'model.php';
                     include 'home.php';
                     exit();
                 } else {
-                    echo "Invalid username or password.<br>";
+                    include 'index.php';
+                    echo "<script>alert (Invalid username or password!)</script>";
                     exit();
                 }
             
@@ -118,19 +119,17 @@ require_once 'model.php';
     }
 
     elseif ($_POST['page'] === 'NPC') {
-        // include 'npcGenerator.php';
 
         switch ($_POST['command']) {
             case 'Generate':
-                generateNPC();
                 include 'npcGenerator.php';
+                generateNPC();
                 exit();
             
             default:
                 echo "Unknown command<br>";
                 exit();
         }
-        exit();
     }
 
 
