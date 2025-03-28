@@ -11,6 +11,7 @@
 </head>
 <body>
 <?php include 'header.php'?>
+<?php include 'profile.php'?>
     <div>
         <h1>NPC Generator</h1>
         <p>Generate a random NPC for your campaign!</p>

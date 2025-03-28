@@ -66,16 +66,17 @@ button#NPC {
   background: none;
   position: fixed;
   top: 0;
-  right: 30px;
+  right: 20px;
   transform: translateY(0);
-  width: 250px;
-  height: 50%;
+  width: 300px;
+  height: 40%;
   overflow-y: auto;
 }
 
 #profile {
   position: absolute;
   display: block;
+  cursor: pointer;
   margin: 0;
   top: 10px;
   left: 50%;
@@ -86,34 +87,30 @@ button#NPC {
 }
 
 #profile:hover {
-  background-color: #ad151a;
-  border-radius: 50px;
+  background-color: white;
+  border-radius: 80px;
+  padding: 5px;
+  box-sizing: border-box;
   transform: translateX(-50%) scale(1.2);
-}
-
-/* //implement with js */
-#profile:hover #profile-div, 
-#profile-div:hover {
-  display: block;
+  cursor: pointer;
 }
 
 #profile-div {
   all: unset;
   position: absolute;
-  align-items: right;
-  justify-content: right;
-  top: 130px; 
-  margin: auto auto;
+  top: 110px; 
   padding: 0;
   background: black;
-  /* width: 250px;  */
+  width: 92%; 
   border-radius: 10px;
-  padding: 10px;
   display: none; 
   text-align: right;
   z-index: 1000; 
 }
 
+#profile-div p {
+  color: white;
+}
 
 p {
   font-size: 1.4rem;

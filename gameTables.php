@@ -11,6 +11,7 @@
 </head>
 <body>
     <?php include 'header.php'?>;
+    <?php include 'profile.php'?>
 
     <?php include 'footer.php'?>
 </body>

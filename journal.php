@@ -10,8 +10,8 @@
     <link rel="icon" href="public/images/incon.webp" type="image/webp">
 </head>
 <body>
-    <?php include 'header.php'; 
-    if (!isset($_COOKIE['username'])) {include 'index.php';} ?>
+    <?php include 'header.php'?>
+    <?php include 'profile.php'?>
     <main>
         <div>
             <h2>New Entry</h2>

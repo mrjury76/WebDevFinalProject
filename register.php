@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="public/styles.css">
-
     <link rel="icon" href="images/icon.webp" type="image/webp">
 </head>
 <body>
@@ -35,10 +34,23 @@
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
             
-            <button type="submit">Register</button>
+            <button id="submit" type="submit">Register</button>
             <br>
-        </form>
     </div>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#submit').on('click', function(eobj) {
+            let password = $('#password').val();
+            let confirmPassword = $('#confirm_password').val();
+            if (password !== confirmPassword) {
+                eobj.preventDefault();
+                alert('Passwords do not match!');
+            }
+            });
+        });
+    </script>
 
     <?php include 'footer.php'; ?>
 </body>

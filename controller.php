@@ -6,6 +6,10 @@ if (empty($_POST['page'])) {
     include 'index.php'; 
     exit();
 } 
+// if (!isset($_COOKIE['username'])) {
+//     include 'index.php';
+//     exit;
+// }
 
 require_once 'model.php';
 $page = $_POST['page'];
