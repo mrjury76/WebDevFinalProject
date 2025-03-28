@@ -120,8 +120,7 @@ a:hover {
 div.login-container {
   display: block;
   margin: auto auto;
-  height: 40vh;
-  background-color: #f0e68c;
+  height: 500px;
 }
 
 div.form-group {

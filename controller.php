@@ -1,18 +1,33 @@
 <link rel="icon" href="public/images/icon.webp" type="image/webp">
+
 <?php
-include 'model.php';
 
-    if (empty($_POST['page'])) {  
-        include 'index.php'; 
-        exit();
-    } 
+if (empty($_POST['page'])) { 
+    include 'index.php'; 
+    exit();
+} 
 
-    elseif ($_POST['page'] === 'StartPage') {  
+require_once 'model.php';
+$page = $_POST['page'];
+$command = $_POST['command'];
+session_start();
+
+
+if ($page === 'StartPage') {
         
-        switch ($_POST['command']) {
+        switch ($command) {
             case 'SignIn':
-                
-                if (isValid($_POST['username'], $_POST['password'])) {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                if (isValid($username, $password)) {
+                    $username = $_POST['username'];
+                    setcookie('username', $username, time() + 24 * 60 * 60);
+                    $_SESSION['signedin'] = 'YES';
+                    $_SESSION['username'] = $username;
+                    echo "<script>alert('Welcome!')</script>";
+                    if ($_SESSION['signedin'] === 'YES') {
+                        echo "<script>alert('Your SIGNED IN!')</script>";
+                    }
                     include 'home.php';
                     exit();
                 } else {
@@ -28,7 +43,7 @@ include 'model.php';
                     exit();
                 }
                 elseif (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-                    echo "All fields are required!<br>";
+                    echo "<script>alert('All fields are required!')</script>";
                     include 'register.php';
                     exit();
                 }
@@ -39,7 +54,7 @@ include 'model.php';
                 exit();
             
             default:
-                echo "Unknown command<br>";
+                echo "<script>alert('Unknown Command: Error 404')</script>";
                 exit();
         }
     }
@@ -88,8 +103,6 @@ include 'model.php';
                         echo "</div>";
                         }
                     }
-                
-                
                 exit();
             
             default:
@@ -102,7 +115,7 @@ include 'model.php';
     elseif ($_POST['page'] === 'Journal') {
         include 'journal.php';
         switch ($_POST['command']) {
-            case 'Sub   mit':
+            case 'Submit':
                 if (empty($_POST['title']) || empty($_POST['content'])) {
                     echo "All fields are required!<br>";
                     exit();
@@ -157,6 +170,10 @@ include 'model.php';
             
             case 'EditCharacter':
                 include 'editCharacter.php';
+                exit();
+            
+            case 'Register':
+                include 'register.php';
                 exit();
             
             default:

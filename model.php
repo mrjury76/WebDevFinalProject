@@ -12,15 +12,14 @@ function createUser($username, $pwd, $email) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         return;
     }
-
-    // Insert user into table
-    $sql = "INSERT INTO Users (username, pwd, email) VALUES ('$username', '$hashedPwd', '$email')";
-    if (mysqli_query($conn, $sql)) {
-        mysqli_close($conn);
-        include 'home.php';
-        exit(); // Prevent further execution
-    } else {
-        echo "Error: " . mysqli_error($conn);
+    else {
+        $sql = "INSERT INTO Users (username, pwd, email) VALUES ('$username', '$hashedPwd', '$email')";
+        if (mysqli_query($conn, $sql)) {
+            mysqli_close($conn);
+            exit();
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
     }
 
     mysqli_close($conn);
@@ -33,20 +32,24 @@ function isValid($u, $p) {
         return false;
     }
 
-    $sql = "SELECT pwd FROM Users WHERE username='$u'";
-    $result = mysqli_query($conn, $sql);
-    
-    if ($result && mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($p, $row['pwd'])) {
-            mysqli_close($conn);
-            session_start();
-            exit();
+    elseif (!empty($u) && !empty($p)) {
+        $sql = "SELECT pwd FROM Users WHERE username='$u'";
+        $result = mysqli_query($conn, $sql);
+        
+        if ($result && mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+            if (password_verify($p, $row['pwd'])) {
+                mysqli_close($conn);
+                echo "<script>alert('Youve reached the isvalid function')</script>";
+                return true;
+            }
         }
     }
-
-    mysqli_close($conn);
-    return false;
+    else{
+        echo "<script>alert('Invalid username or password!')</script>";
+        mysqli_close($conn);
+        return false;
+    }
 }
 
 function generateNPC() {
@@ -91,15 +94,12 @@ function generateNPC() {
     mysqli_close($conn);
 }
 
-function createEntry() {
+function createEntry($title, $content) {
     global $conn;
-    $title = $_POST['title'];
-    $content = $_POST['content'];
     $username = $_SESSION['username'];
-    $sql = "INSERT INTO Journal (title, content, username) VALUES ('$title', '$content', '$username')";
+    $sql = "INSERT INTO journals (title, content, username) VALUES ('$title', '$content', '$username')";
     if (mysqli_query($conn, $sql)) {
         mysqli_close($conn);
-        include 'journal.php';
         exit();
     } else {
         echo "Error: " . mysqli_error($conn);

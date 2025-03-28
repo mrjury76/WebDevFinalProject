@@ -1,22 +1,4 @@
-<?php
-// Check if session has already been started
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     require 'controller.php';
-
-//     if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
-//         $_SESSION['username'] = $_POST['username']; // Store username in session
-//         header("Location: home.php");
-//         exit();
-//     } else {
-//         $error = "Invalid username or password.";
-//     }
-// }
-?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,12 +26,28 @@ if (session_status() == PHP_SESSION_NONE) {
                 <input type="password" id="password" name="password" required>
             </div>
 
+            <label for="remember_me">Remember Me:</label>
+            <input type="checkbox" name="remember_me" id="remember_me">
+
             <button type="submit">Sign In</button>
         </form>
 
-        <p style="position: relative; bottom: 0; text-align: center;">
-            Don't have an account? <a href="register.php">Register</a>
-        </p>
+        <p>Don't have an account?</p>
+        <form method="post" action="controller.php">
+            <button id="header" type="submit" name="command" value="Register">Register</button>
+        </form>
     </div>
+    <!-- <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require 'controller.php';
+
+        if (isset($_POST['username'], $_POST['password']) && isValid($_POST['username'], $_POST['password'])) {
+            $_SESSION['username'] = $_POST['username'];
+            exit();
+        } else {
+            $error = "Invalid username or password.";
+        }
+    }
+?> -->
 </body>
 </html>
