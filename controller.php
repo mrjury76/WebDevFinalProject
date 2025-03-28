@@ -24,7 +24,7 @@ if ($page === 'StartPage') {
                 $password = $_POST['password'];
                 if (isValid($username, $password)) {
                     $username = $_POST['username'];
-                    setcookie('username', $username, time() + 24 * 60 * 60);
+                    setcookie('username', $username, time() + 30 * 24 * 60 * 60); //keeps cookie for a month
                     $_SESSION['signedin'] = 'YES';
                     $_SESSION['username'] = $username;
                     if ($_SESSION['signedin'] === 'YES') {
