@@ -11,11 +11,11 @@
 </head>
 <body>
     <?php include 'header.php'?>
-    <?php include 'profile.php'?>
         <div>
             <h1>Welcome to the D&D Interactive Website</h1>
             <p>Track your characters, roll dice, and take notes!</p>
         </div>
+        <?php include 'profile.php'?>
     <?php include 'footer.php'?>
 </body>
 </html>

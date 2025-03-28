@@ -10,7 +10,8 @@
     <link rel="icon" href="images/icon.webp" type="image/webp">
 </head>
 <body>
-    <?php include 'header.php'?>;
+    <?php include 'header.php'?>
+    <?php include 'profile.php'?>
     <div>
         <h1>Dice Roller</h1>
         <form method="post" action="controller.php">
@@ -38,10 +39,16 @@
             <script>
                 function setDice(sides) {
                     document.getElementById('sides').value = sides;
+                    incrementDice();
                 }
 
                 function setNumber(dice) {
                     document.getElementById('dice').value = dice;
+                }
+
+                function incrementDice() {
+                    let diceInput = document.getElementById('dice');
+                    diceInput.value = parseInt(diceInput.value || 0) + 1;
                 }
             </script>
 
