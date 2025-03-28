@@ -55,7 +55,7 @@ if ($page === 'StartPage') {
                 exit();
             
             default:
-                echo "<script>alert('Unknown Command: Error 404')</script>";
+                echo "<script>alert('Unknown Command')</script>";
                 exit();
         }
     }
@@ -117,14 +117,18 @@ if ($page === 'StartPage') {
         include 'journal.php';
         switch ($_POST['command']) {
             case 'Submit':
-                if (empty($_POST['title']) || empty($_POST['content'])) {
-                    echo "All fields are required!<br>";
+                if (empty($_POST['title']) || empty($_POST['content'] || empty($_COOKIE['username']))) {
+                    echo "<script>alert('All fields are required!')</script>";
                     exit();
                 }
                 else {
-                    createEntry($_POST['title'], $_POST['content']);
-                    include 'journal.php';
-                    exit();
+                    if (createEntry($_POST['title'], $_POST['content'])) {
+                        echo "<script>alert('Entry created!')</script>";
+                        exit();
+                    } else {
+                        echo "<script>alert('Error creating entry!')</script>";
+                        exit();
+                    }
                 }
             
             default:
@@ -196,7 +200,7 @@ if ($page === 'StartPage') {
                 exit();
             
             default:
-                echo "Unknown command<br>";
+                echo "<script>alert(Unknown command)</script>";
                 exit();
         }
     }

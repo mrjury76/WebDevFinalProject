@@ -69,13 +69,13 @@ function getRandomValue($column) {
 
 function createEntry($title, $content) {
     global $conn;
-    $username = $_SESSION['username'];
+    $username = $_COOKIE['username'];
     $sql = "INSERT INTO journals (title, content, username) VALUES ('$title', '$content', '$username')";
     if (mysqli_query($conn, $sql)) {
         mysqli_close($conn);
-        exit();
+        return true;
     } else {
-        echo "Error: " . mysqli_error($conn);
+        return false;
     }
 }
 

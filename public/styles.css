@@ -67,11 +67,11 @@ button#NPC {
   display: flex;
   align-items: right;
   justify-content: right;
-  margin-top: 20px;
-  height: 60px;
-  width: 60px;
+  /* margin-top: 20px; */
+  height: 75px;
+  width: 75px;
   position: fixed;
-  top: 10px; 
+  top: 40px; 
   right: 40px;
 }
 
@@ -79,6 +79,30 @@ button#NPC {
   background-color: #ad151a;
   border-radius: 50px;
   scale: 1.1 ;
+}
+
+#profile-div {
+  position: absolute;
+  top: 100%; 
+  right: 0; 
+  background: #f0e68c;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px; 
+  border-radius: 8px;
+  padding: 10px;
+  display: none; 
+  text-align: left;
+}
+#profile-div p {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+#profile:hover #profile-div {
+  display: block; /* Show dropdown on hover */
 }
 
 p {

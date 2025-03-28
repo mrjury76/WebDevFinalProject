@@ -10,7 +10,8 @@
     <link rel="icon" href="images/icon.webp" type="image/png">
 </head>
 <body>
-    <?php include 'header.php'?>;
+    <?php include 'header.php'?>
+    <?php include 'profile.php'?>
         <div>
             <h1>Welcome to the D&D Interactive Website</h1>
             <p>Track your characters, roll dice, and take notes!</p>

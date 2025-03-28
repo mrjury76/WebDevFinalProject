@@ -23,9 +23,15 @@
                 <input style="display: block; margin: 10px auto" type="text" id="title" name="title" required>
 
                 <label style="display: block; margin: 10px auto" for="content"><p>Content:</p></label>
-                <textarea style="display: block; margin: 10px auto" id="content" name="content" rows="10" max="255" required></textarea>
+                <textarea style="display: block; margin: 10px auto" id="content" name="content" rows="10" cols="50" max="255" required></textarea>
 
                 <button type="submit">Submit</button>
+            </form>
+
+            <form>
+                <input type="hidden" name="page" value="Journal">
+                <input type="hidden" name="command" value="View">
+                <button id="header" type="submit">View Entries</button>
             </form>
         </div>
 
