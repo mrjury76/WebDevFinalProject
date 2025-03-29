@@ -18,21 +18,17 @@ session_start();
 
 
 if ($page === 'StartPage') {
-    if (!isset($_SESSION['signedin'])) {
-        include 'index.php';
-        exit;
-    }
+    
         switch ($command) {
             case 'SignIn':
-                $username = $_POST['username'];
+                $username = trim($_POST['username']);
                 $password = $_POST['password'];
                 if (isValid($username, $password)) {
+                    echo '<script>alert(Welcome,  . ($username) . !);</script>';
                     $username = $_POST['username'];
                     setcookie('username', $username, time() + 30 * 24 * 60 * 60); //keeps cookie for a month
-                    $_SESSION['signedin'] = 'YES';
                     $_SESSION['username'] = $username;
-                    if ($_SESSION['signedin'] === 'YES') {
-                    }
+                    $_SESSION['signedin'] = 'YES';
                     include 'home.php';
                     exit();
                 } else {
@@ -58,6 +54,14 @@ if ($page === 'StartPage') {
                 }
                 exit();
             
+            case 'Logout':
+                setcookie('username', '', time() - 3600);
+                unset($_COOKIE['username']); // Unset the cookie variable
+                session_unset();
+                session_destroy(); 
+                include 'index.php';
+                exit();
+
             default:
                 echo "<script>alert('Unknown Command')</script>";
                 exit();
@@ -121,7 +125,7 @@ if ($page === 'StartPage') {
         include 'journal.php';
         switch ($_POST['command']) {
             case 'Submit':
-                if (empty($_POST['title']) || empty($_POST['content'] || empty($_COOKIE['username']))) {
+                if (empty($_POST['title']) || empty($_POST['content']) || empty($_COOKIE['username'])) {
                     echo "<script>alert('All fields are required!')</script>";
                     exit();
                 }
@@ -202,9 +206,13 @@ if ($page === 'StartPage') {
             case 'Register':
                 include 'register.php';
                 exit();
+
+            case 'SignIn':
+                include 'index.php';
+                exit();
             
             default:
-                echo "<script>alert(Unknown command)</script>";
+                echo "<p>Unknown command</p>";
                 exit();
         }
     }

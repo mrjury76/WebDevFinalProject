@@ -1,9 +1,12 @@
 <div class="profile-container">
     <img id="profile" src="public/images/profilePic.webp">
     <div id="profile-div">
-        <p>Welcome <?php echo $_COOKIE['username']; ?></p>
-        <button id="logout" type="button">Logout</button>
-        <button id="settings" type="button">Settings</button>
+        <p>Welcome <?php echo isset($_COOKIE['username']) ? htmlspecialchars($_COOKIE['username']) : 'Guest'; ?></p>
+        <form action="controller.php" method="post">
+            <input type="hidden" name="page" value="StartPage">
+            <input type="hidden" name="command" value="Logout">
+            <button type="submit" id="logout" type="button">Logout</button>
+        </form>
     </div>
 </div>
     <script>
