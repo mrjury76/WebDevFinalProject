@@ -1,5 +1,4 @@
 <?php 
-    session_start();
     if (isset($_COOKIE['username'])) {
         include 'home.php';
         exit();

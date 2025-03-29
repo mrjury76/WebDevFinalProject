@@ -80,4 +80,33 @@ function createEntry($title, $content) {
     }
 }
 
+function deleteUser($username) {
+    global $conn;
+    $sql = "DELETE FROM Users WHERE username='$username'";
+    if (mysqli_query($conn, $sql)) {
+        mysqli_close($conn);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function getEntries($username) {
+    global $conn;
+
+    $sql = "SELECT title, content FROM journals WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        return ["error" => "Database query failed: " . mysqli_error($conn)];
+    }
+
+    if (mysqli_num_rows($result) > 0) {
+        $entries = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $entries;
+    }
+
+    return [];
+}
+
 ?>

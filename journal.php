@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +10,6 @@
 <body>
     <?php include 'header.php'?>
     <?php include 'profile.php'?>
-    <main>
         <div>
             <h2>New Entry</h2>
             <form action="controller.php" method="post">

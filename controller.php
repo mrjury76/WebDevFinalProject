@@ -24,7 +24,6 @@ if ($page === 'StartPage') {
                 $username = trim($_POST['username']);
                 $password = $_POST['password'];
                 if (isValid($username, $password)) {
-                    echo '<script>alert(Welcome,  . ($username) . !);</script>';
                     $username = $_POST['username'];
                     setcookie('username', $username, time() + 30 * 24 * 60 * 60); //keeps cookie for a month
                     $_SESSION['username'] = $username;
@@ -49,17 +48,40 @@ if ($page === 'StartPage') {
                     exit();
                 }
                 else{
-                    createUser($_POST['username'], $_POST['password'], $_POST['email']);
-                    include 'home.php';
+                    if(createUser($_POST['username'], $_POST['password'], $_POST['email'])) {
+                        include 'home.php';
+                        exit();
+                    }
+                    else{
+                        echo "<script>alert('Username already exists!')</script>";
+                        include 'index.php';
+                        exit();
+                    }
                 }
-                exit();
             
             case 'Logout':
                 setcookie('username', '', time() - 3600);
-                unset($_COOKIE['username']); // Unset the cookie variable
+                unset($_COOKIE['username']);
                 session_unset();
                 session_destroy(); 
                 include 'index.php';
+                exit();
+
+            case '_DELETE':
+                // echo '<script>confirm("Are you sure you want to delete your account? This action cannot be undone.");</script>';
+                if (isset($_COOKIE['username'])) {
+                    $username = $_COOKIE['username'];
+                    deleteUser($username);
+                    setcookie('username', '', time() - 3600);
+                    unset($_COOKIE['username']);
+                    session_unset();
+                    session_destroy(); 
+                    include 'index.php';
+                } else {
+                    echo "<script>alert('No user is logged in!')</script>";
+                    include 'index.php';
+                    exit();
+                }
                 exit();
 
             default:
