@@ -1,7 +1,8 @@
 <?php
     $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (!$conn) {
-        echo 'Could not connect: ' . mysqli_connect_error();
+        echo "<script>console.error('Could not connect: ' . mysqli_connect_error());</script>";
+        exit();
     }
     
 function createUser($username, $pwd, $email) { 
@@ -9,7 +10,7 @@ function createUser($username, $pwd, $email) {
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
     if (mysqli_connect_errno()) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
         return;
     }
     else {
@@ -18,7 +19,7 @@ function createUser($username, $pwd, $email) {
             mysqli_close($conn);
             exit();
         } else {
-            echo "Error: " . mysqli_error($conn);
+            echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
         }
     }
 
@@ -28,7 +29,7 @@ function createUser($username, $pwd, $email) {
 function isValid($u, $p) {
     $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (mysqli_connect_errno()) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
         return false;
     }
 
@@ -53,7 +54,7 @@ function isValid($u, $p) {
 function getRandomValue($column) {
     $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (mysqli_connect_errno()) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
     } else {
         $sql = "SELECT `$column` FROM NPCs ORDER BY RAND() LIMIT 1";
         $result = mysqli_query($conn, $sql);

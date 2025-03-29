@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     if (isset($_COOKIE['username'])) {
         include 'home.php';
         exit();
@@ -36,7 +37,7 @@
 
         <p>Don't have an account?</p>
         <form action="controller.php" method="post">
-            <input type="hidden" name="page" value="StartPage">
+            <input type="hidden" name="page" value="Header">
             <input type="hidden" name="command" value="Register">
             <button id="header" type="submit">Register</button>
         </form>

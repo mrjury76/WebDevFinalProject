@@ -143,6 +143,10 @@ button#header {
   cursor: pointer;
 }
 
+button#delete{
+  height: 80px;
+}
+
 a:hover {
   background-color: #d03237;
   scale: 1.1 ;

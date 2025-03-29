@@ -47,6 +47,7 @@
             if (password !== confirmPassword) {
                 eobj.preventDefault();
                 alert('Passwords do not match!');
+                <?php include 'index.php'; ?>
             }
             });
         });
