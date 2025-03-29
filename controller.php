@@ -68,21 +68,20 @@ if ($page === 'StartPage') {
                 exit();
 
             case '_DELETE':
-                // echo '<script>confirm("Are you sure you want to delete your account? This action cannot be undone.");</script>';
-                if (isset($_COOKIE['username'])) {
-                    $username = $_COOKIE['username'];
+                $username = $_COOKIE['username'];
+                if (isset($username)) {
                     deleteUser($username);
-                    setcookie('username', '', time() - 3600);
-                    unset($_COOKIE['username']);
+                    setcookie($username, '', time() - 3600);
+                    unset($username);
                     session_unset();
                     session_destroy(); 
                     include 'index.php';
+                    exit();
                 } else {
                     echo "<script>alert('No user is logged in!')</script>";
                     include 'index.php';
                     exit();
                 }
-                exit();
 
             default:
                 echo "<script>alert('Unknown Command')</script>";
@@ -143,9 +142,9 @@ if ($page === 'StartPage') {
 
     }
 
-    elseif ($_POST['page'] === 'Journal') {
+    elseif ($page === 'Journal') {
         include 'journal.php';
-        switch ($_POST['command']) {
+        switch ($command) {
             case 'Submit':
                 if (empty($_POST['title']) || empty($_POST['content']) || empty($_COOKIE['username'])) {
                     echo "<script>alert('All fields are required!')</script>";
@@ -160,6 +159,16 @@ if ($page === 'StartPage') {
                         exit();
                     }
                 }
+
+            case 'View':
+                $username = $_COOKIE['username'];
+                $entries = queryEntries($username); // Fetch entries from model.php
+                if (!empty($entries)) {
+                    echo json_encode(['status' => 'success', 'entries' => $entries]);
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'No entries found.']);
+                }
+                exit();
             
             default:
                 echo "Unknown command<br>";

@@ -91,22 +91,22 @@ function deleteUser($username) {
     }
 }
 
-function getEntries($username) {
+function queryEntries($username) {
     global $conn;
 
-    $sql = "SELECT title, content FROM journals WHERE username = '$username'";
+    $sql = "SELECT title, content, created_date FROM journals WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
-
-    if (!$result) {
-        return ["error" => "Database query failed: " . mysqli_error($conn)];
-    }
-
-    if (mysqli_num_rows($result) > 0) {
-        $entries = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $rowCount = mysqli_num_rows($result);
+    $entries = [];
+    for ($i = 0; $i < $rowCount; $i++) {
+        $row = mysqli_fetch_assoc($result);
+        $entries[] = [
+            'title' => $row['title'],
+            'content' => $row['content'],
+            'created_date' => $row['created_date']
+        ];
         return $entries;
     }
-
-    return [];
 }
 
 ?>
