@@ -1,7 +1,6 @@
 <link rel="icon" href="public/images/icon.webp" type="image/webp">
 
 <?php
-
 if (empty($_POST['page'])) { 
     include 'index.php'; 
     exit();
@@ -161,16 +160,16 @@ if ($page === 'StartPage') {
                 }
 
             case 'View':
+                // header('Content-Type: application/json');
                 $username = $_COOKIE['username'];
                 $entries = queryEntries($username);
                 if (!empty($entries)) {
-                    $jsonResponse = json_encode(['status' => 'success', 'entries' => $entries]);
-                    echo $jsonResponse;
-                    echo "<script>console.log('Entries:', $jsonResponse);</script>";
+                    echo json_encode(['status' => 'success', 'entries' => $entries]);
+                    exit();
                 } else {
                     echo json_encode(['status' => 'error', 'message' => 'No entries found.']);
+                    exit();
                 }
-                exit();
             
             default:
                 echo "Unknown command<br>";

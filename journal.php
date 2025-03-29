@@ -7,80 +7,79 @@
     <link rel="stylesheet" href="public/styles.css">
     <link rel="icon" href="public/images/icon.webp" type="image/webp">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </head>
 <body>
     <?php include 'header.php'?>
     <?php include 'profile.php'?>
     <div>
-        <h2>New Entry</h2>
+        <h1>New Entry</h1>
         <form action="controller.php" method="post">
             <input type="hidden" name="page" value="Journal">
             <input type="hidden" name="command" value="Submit">
 
-            <label style="display: block; margin: 10px auto" for="title"><p>Title:</p></label>
-            <input style="display: block; margin: 10px auto" type="text" id="title" name="title" required>
+            <label  for="title"><p>Title:</p></label>
+            <input  type="text" id="title" name="title" required>
+            <br><br>
 
-            <label style="display: block; margin: 10px auto" for="content"><p>Content:</p></label>
-            <textarea style="display: block; margin: 10px auto" id="content" name="content" rows="10" cols="40" max="255" required></textarea>
+            <label for="content"><p>Content:</p></label>
+            <textarea id="content" name="content" rows="10" cols="40" max="255" required></textarea>
 
             <button type="submit">Submit</button>
             <button id="header" type="button">View Entries</button>
         </form>
     </div>
     
-    <div id="journal"></div>
+    <div class="bottom" id="journal"></div>
 
     <?php include 'footer.php'; ?>
-
+    
     <script>
-        $(document).ready(function() {
-            getEntries2(); // Call the function to get journal entries on page load
-            console.log("Document Ready");
-
-            // Ensure the button click triggers
-            $('#header').click(function(e) {
-                e.preventDefault(); // Prevent form submission
-                console.log("Button clicked!");
-                getEntries2(); // Call the function to get journal entries
+        document.getElementById("header").addEventListener('click', function(){
+                console.log("Button Clicked!");
+                displayEntries(response);
             });
 
-            function getEntries2() {
-                console.log("AJAX request initiated");
+        $(document).ready(function() {
+            console.log("Document Ready");
 
-                var controller = "controller.php";
-                
-                $.ajax({
-                    url: controller,  // jQuery AJAX request to the controller
-                    type: 'POST',  // The method type
-                    data: { page: 'Journal', command: 'View' },
-                    success: function(response) {
-                        console.log("AJAX Response:", response); // Log the server response for debugging
-                        let data = JSON.parse(response);  // Parse the JSON response
 
-                        // Clear the #journal div before adding new entries
-                        $('#journal').empty();
-
-                        if (data.status === 'success') {
-                            // Loop through the entries and display them
-                            data.entries.forEach(function(entry) {
-                                var entryHtml = '<div class="entry">';
-                                entryHtml += '<h2>' + entry.title + '</h2>';
-                                entryHtml += '<p>' + entry.content + '</p>';
-                                entryHtml += '<p><em>Created on: ' + entry.created_date + '</em></p>';
-                                entryHtml += '</div>';
-                                $('#journal').append(entryHtml);  // Append each entry to the div
-                            });
-                        } else {
-                            // Display error message if no entries were found
-                            $('#journal').html('<p>' + data.message + '</p>');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error: " + status + " - " + error);
-                    }
-                });
-            }
+            $.ajax({
+                url: 'controller.php',
+                type: 'POST',
+                data: {
+                    page: 'Journal',
+                    command: 'View',
+                },
+                success: function(data) {
+                    console.log("AJAX Success:", data);
+                    displayEntries(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                }
+            });
+            
         });
+
+        function displayEntries(data) {
+                $('#journal').empty();
+
+                if (data.status === 'success') {
+                    data.entries.forEach(function(entry) {
+                        let entryHtml = '<div class="entry">';
+                        entryHtml += '<table class="entry-table">';
+                        entryHtml += '<tr><th>Title</th><td>' + entry.title + '</td></tr>';
+                        entryHtml += '<tr><th>Entry</th><td>' + entry.content + '</td></tr>';
+                        entryHtml += '<tr><th>Created On</th><td>' + entry.created_date + '</td></tr>';
+                        entryHtml += '</table>';
+                        entryHtml += '</div>';
+                        $('#journal').append(entryHtml);
+                    });
+                } else {
+                    $('#journal').html('<p>No entries found.</p>');
+                }
+            }
     </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <div class="profile-container">
     <img id="profile" src="public/images/profilePic.webp">
     <div id="profile-div">
-        <p>Welcome <?php echo isset($_COOKIE['username']) ? htmlspecialchars($_COOKIE['username']) : 'Guest'; ?></p>
+        <h1 id="profile-h1">Welcome <?php echo isset($_COOKIE['username']) ? htmlspecialchars($_COOKIE['username']) : 'Guest'; ?></h1>
         <form action="controller.php" method="post">
             <input type="hidden" name="page" value="StartPage">
             <button type="submit" name="command" value="Logout">Logout</button>
@@ -17,8 +17,13 @@
             let deleteButton = document.getElementById("delete");
 
             profile.addEventListener("click", function () {
-                profileDiv.style.display = "block";
+                if (profileDiv.style.display === "block") {
+                    profileDiv.style.display = "none";
+                } else {
+                    profileDiv.style.display = "block";
+                }
             });
+
 
             container.addEventListener("mouseleave", function () {
                 profileDiv.style.display = "none";
