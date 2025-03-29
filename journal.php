@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal</title>
     <link rel="stylesheet" href="public/styles.css">
-    <link rel="icon" href="public/images/incon.webp" type="image/webp">
+    <link rel="icon" href="public/images/icon.webp" type="image/webp">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -27,6 +27,7 @@
             <button id="header" type="button">View Entries</button>
         </form>
     </div>
+    
     <div id="journal"></div>
 
     <?php include 'footer.php'; ?>

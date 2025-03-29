@@ -96,8 +96,8 @@ if ($page === 'StartPage') {
                     $sum = 0;
                     $numDice = $_POST['dice'];
                     $sides = $_POST['sides'];
-                    echo "<div>";
-                    echo "<h2>Results:</h2>";
+                    echo "<div class='bottom'>";
+                    echo "<h1>Results:</h1>";
                     echo "<ul>";
                     for ($i = 0; $i < $numDice; $i++) {
                     $roll = rand(1, $sides);
@@ -162,9 +162,11 @@ if ($page === 'StartPage') {
 
             case 'View':
                 $username = $_COOKIE['username'];
-                $entries = queryEntries($username); // Fetch entries from model.php
+                $entries = queryEntries($username);
                 if (!empty($entries)) {
-                    echo json_encode(['status' => 'success', 'entries' => $entries]);
+                    $jsonResponse = json_encode(['status' => 'success', 'entries' => $entries]);
+                    echo $jsonResponse;
+                    echo "<script>console.log('Entries:', $jsonResponse);</script>";
                 } else {
                     echo json_encode(['status' => 'error', 'message' => 'No entries found.']);
                 }
@@ -187,18 +189,18 @@ if ($page === 'StartPage') {
                 foreach ($columns as $column) {
                     $npc[$column] = getRandomValue($column);
                 }
-
-                echo "<div class='npc'>";
-                echo "<h1 class='npc'>Random NPC:</h1>";
-                echo "<ul>";
-                echo "<li><p>First Name:</p> " . $npc['fname'] . "</li>";
-                echo "<li><p>Last Name:</p> " . $npc['lname'] . "</li>";
-                echo "<li><p>Race:</p> " . $npc['race'] . "</li>";
-                echo "<li><p>Class:</p> " . $npc['class'] . "</li>";
-                echo "<li><p>Quirk:</p> " . $npc['quirk'] . "</li>";
-                echo "<li><p>Alignment:</p> " . $npc['alignment'] . "</li>";
-                echo "<li><p>Motivation:</p> " . $npc['motivation'] . "</li>";
-                echo "</ul>";
+                echo "<div class='bottom'>";
+                echo "<table border='1'><th>Random NPC:</th></table>";
+                echo "<table border='1' class='npc-table'>";
+                echo "<tr><th>Attribute</th><th>Value</th></tr>";
+                echo "<tr><td>First Name</td><td>" . $npc['fname'] . "</td></tr>";
+                echo "<tr><td>Last Name</td><td>" . $npc['lname'] . "</td></tr>";
+                echo "<tr><td>Race</td><td>" . $npc['race'] . "</td></tr>";
+                echo "<tr><td>Class</td><td>" . $npc['class'] . "</td></tr>";
+                echo "<tr><td>Quirk</td><td>" . $npc['quirk'] . "</td></tr>";
+                echo "<tr><td>Alignment</td><td>" . $npc['alignment'] . "</td></tr>";
+                echo "<tr><td>Motivation</td><td>" . $npc['motivation'] . "</td></tr>";
+                echo "</table>";
                 echo "</div>";
                 exit();
             

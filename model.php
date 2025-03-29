@@ -94,19 +94,20 @@ function deleteUser($username) {
 function queryEntries($username) {
     global $conn;
 
-    $sql = "SELECT title, content, created_date FROM journals WHERE username = '$username'";
+    $sql = "SELECT title, content, date_created FROM journals WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
-    $rowCount = mysqli_num_rows($result);
+    
     $entries = [];
-    for ($i = 0; $i < $rowCount; $i++) {
-        $row = mysqli_fetch_assoc($result);
+    while ($row = mysqli_fetch_assoc($result)) {
         $entries[] = [
             'title' => $row['title'],
             'content' => $row['content'],
-            'created_date' => $row['created_date']
+            'created_date' => $row['date_created']
         ];
-        return $entries;
     }
+
+    return $entries;
 }
+
 
 ?>

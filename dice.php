@@ -17,10 +17,10 @@
         <form method="post" action="controller.php">
             <input type="hidden" name="page" value="Dice">
             <input type="hidden" name="command" value="Roll">
-            <label for="dice">Number of dice:</label>
+            <label for="dice"><p>Number of dice:</p></label>
             <input type="number" id="dice" name="dice" min="1" required>
 
-            <label for="sides">Number of sides per die:</label>
+            <label for="sides"><p>Number of sides per die:</p></label>
             <input type="number" id="sides" name="sides" min="2" required>
 
             
