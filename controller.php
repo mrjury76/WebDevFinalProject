@@ -1,4 +1,3 @@
-<link rel="icon" href="public/images/icon.webp" type="image/webp">
 
 <?php
 if (empty($_POST['page'])) { 
@@ -36,27 +35,27 @@ if ($page === 'StartPage') {
                 }
             
             case 'Join':  
-                if($_POST['password'] !== $_POST['confirm_password']) {
-                    echo "<script>alert('Passwords do not match!');</script>";
-                    include 'register.php';
-                    exit();
-                }
-                elseif (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
+                // if($_POST['password'] !== $_POST['confirm_password']) {
+                //     echo "<script>alert('Passwords do not match!');</script>";
+                //     include 'register.php';
+                //     exit();
+                // }
+                if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
                     echo "<script>alert('All fields are required!')</script>";
                     include 'register.php';
                     exit();
                 }
-                else{
-                    if(createUser($_POST['username'], $_POST['password'], $_POST['email'])) {
+                if(createUser($_POST['username'], $_POST['password'], $_POST['email'])) {
                         include 'home.php';
+                        echo "<script>alert('User Created!')</script>";
                         exit();
                     }
-                    else{
-                        echo "<script>alert('Username already exists!')</script>";
-                        include 'index.php';
-                        exit();
-                    }
-                }
+                    // else{
+                    //     echo "<script>alert('Username already exists!')</script>";
+                    //     include 'index.php';
+                    //     exit();
+                    // }
+                
             
             case 'Logout':
                 setcookie('username', '', time() - 3600);

@@ -14,7 +14,7 @@ function createUser($username, $pwd, $email) {
         return;
     }
     else {
-        $sql = "INSERT INTO Users (username, pwd, email) VALUES ('$username', '$hashedPwd', '$email')";
+        $sql = "INSERT INTO users (username, pwd, email) VALUES ('$username', '$hashedPwd', '$email', SYSDATE())";
         if (mysqli_query($conn, $sql)) {
             mysqli_close($conn);
             exit();
