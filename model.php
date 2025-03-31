@@ -164,5 +164,19 @@ function createCharacter($username, $name, $level, $class, $race, $strength, $de
     }
 }
 
+function deleteCharacter($character, $username){
+    global $conn;
+    $sql = "DELETE FROM characters WHERE name='$character' AND username='$username'";
+    if (mysqli_query($conn, $sql)) {
+        echo "<script>console.log('Character deleted successfully!');</script>";
+        mysqli_close($conn);
+        return true;
+    } else {
+        echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
+        mysqli_close($conn);
+        return false;
+    }
+}
+
 
 ?>

@@ -127,6 +127,19 @@ if ($page === 'StartPage') {
                     echo json_encode(['status' => 'error', 'message' => 'No character found.']);
                     exit();
                 }
+
+            case 'DeleteCharacter':
+                $username = $_COOKIE['username'];
+                $delete = deleteCharacter($_POST['characterName'], $username);
+                if ($delete) {
+                    include 'home.php';
+                    echo "<script>alert('Character deleted!')</script>";
+                    exit();
+                } else {
+                    include 'home.php';
+                    echo "<script>alert('Error deleting character!')</script>";
+                    exit();
+                }
         }
 
     }
