@@ -145,23 +145,27 @@ if ($page === 'StartPage') {
     }
 
     elseif ($page === 'Journal') {
-        include 'journal.php';
+        // 
         switch ($command) {
             case 'Submit':
                 if (empty($_POST['title']) || empty($_POST['content'])) {
                     echo "<script>alert('All fields are required!')</script>";
+                    include 'journal.php';
                     exit();
                 }
                 if (empty($_COOKIE['username'])){ 
-                    echo "<script>alert(';You must signed in to use that feature!')</script>";
-                    include 'index.php';
+                    echo "<script>alert('You must signed in to use that feature!')</script>";
+                    require 'index.php';
+                    exit();
                 }
                 else {
                     if (createEntry($_POST['title'], $_POST['content'])) {
                         echo "<script>alert('Entry created!')</script>";
+                        include 'journal.php';
                         exit();
                     } else {
                         echo "<script>alert('Error creating entry!')</script>";
+                        include 'journal.php';
                         exit();
                     }
                 }

@@ -1,4 +1,9 @@
-
+<?php 
+if(empty($_COOKIE['username'])) {
+    include 'index.php'; 
+    exit();
+}
+?>
 <header>
         <div class="container">
             <h1>D&D Interactive</h1>
