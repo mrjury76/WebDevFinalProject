@@ -1,6 +1,6 @@
 <?php 
     if (isset($_COOKIE['username'])) {
-        include 'home.php';
+        include 'controller.php';
         exit();
     }
 ?>

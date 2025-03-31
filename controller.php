@@ -8,10 +8,10 @@ if (empty($_POST['page'])) {
 //     include_once 'home.php';
 //     exit();
 // }
-if (!isset($_COOKIE['username'])) {
-    include 'index.php';
-    exit;
-}
+// if (!isset($_COOKIE['username'])) {
+//     include 'index.php';
+//     exit;
+// }
 
 require_once 'model.php';
 $page = $_POST['page'];
@@ -148,9 +148,13 @@ if ($page === 'StartPage') {
         include 'journal.php';
         switch ($command) {
             case 'Submit':
-                if (empty($_POST['title']) || empty($_POST['content']) || empty($_COOKIE['username'])) {
+                if (empty($_POST['title']) || empty($_POST['content'])) {
                     echo "<script>alert('All fields are required!')</script>";
                     exit();
+                }
+                if (empty($_COOKIE['username'])){ 
+                    echo "<script>alert(';You must signed in to use that feature!')</script>";
+                    include 'index.php';
                 }
                 else {
                     if (createEntry($_POST['title'], $_POST['content'])) {

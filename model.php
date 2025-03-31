@@ -73,7 +73,7 @@ function getRandomValue($column) {
 function createEntry($title, $content) {
     global $conn;
     $username = $_COOKIE['username'];
-    $sql = "INSERT INTO journals (title, content, username) VALUES ('$title', '$content', '$username')";
+    $sql = "INSERT INTO journals (title, content, date_created) VALUES ('$title', '$content', 'SYSDATE()')";
     if (mysqli_query($conn, $sql)) {
         mysqli_close($conn);
         return true;

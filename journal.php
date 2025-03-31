@@ -26,8 +26,8 @@
             <textarea id="content" name="content" rows="10" cols="40" max="255" required></textarea>
 
             <button type="submit">Submit</button>
-            <button id="header" type="button">View Entries</button>
         </form>
+        <button id="header" type="button">View Entries</button>
     </div>
     
     <div class="bottom" id="journal"></div>
