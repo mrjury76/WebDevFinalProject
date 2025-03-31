@@ -4,14 +4,7 @@ if (empty($_POST['page'])) {
     include 'index.php'; 
     exit();
 } 
-// if (isset($_COOKIE['username'])) {
-//     include_once 'home.php';
-//     exit();
-// }
-// if (!isset($_COOKIE['username'])) {
-//     include 'index.php';
-//     exit;
-// }
+
 
 require_once 'model.php';
 $page = $_POST['page'];
@@ -26,7 +19,6 @@ if ($page === 'StartPage') {
                 $username = trim($_POST['username']);
                 $password = $_POST['password'];
                 if (isValid($username, $password)) {
-                    $username = $_POST['username'];
                     setcookie('username', $username, time() + 30 * 24 * 60 * 60); //keeps cookie for a month
                     $_SESSION['username'] = $username;
                     $_SESSION['signedin'] = 'YES';

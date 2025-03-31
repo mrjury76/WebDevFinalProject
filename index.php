@@ -1,6 +1,6 @@
 <?php 
-    if (isset($_COOKIE['username'])) {
-        include 'controller.php';
+    if (isset ($_COOKIE['username'])){
+        include 'home.php';
         exit();
     }
 ?>
@@ -41,7 +41,7 @@
             <button id="header" type="submit">Register</button>
         </form>
     </div>
-
+    
     
 </body>
 </html>
