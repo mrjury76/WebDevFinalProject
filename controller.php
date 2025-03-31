@@ -26,7 +26,7 @@ if ($page === 'StartPage') {
                     exit();
                 } else {
                     include 'index.php';
-                    echo "<script>alert (Invalid username or password!)</script>";
+                    echo "<script>alert('Invalid username or password!')</script>";
                     exit();
                 }
             
@@ -41,8 +41,6 @@ if ($page === 'StartPage') {
                     exit();
                 }
                 elseif(createUser($username, $password, $email)) {
-                    isValid($username, $password);
-                    echo "<script>alert('User Created!')</script>";
                     setcookie('username', $username, time() + 30 * 24 * 60 * 60); //keeps cookie for a month
                     $_SESSION['username'] = $username;
                     $_SESSION['signedin'] = 'YES';
@@ -54,8 +52,7 @@ if ($page === 'StartPage') {
                 
             
             case 'Logout':
-                setcookie('username', '', time() - 3600);
-                unset($_COOKIE['username']);
+                setcookie('username', $username, time() - 3600);
                 session_unset();
                 session_destroy(); 
                 include 'index.php';
@@ -64,16 +61,21 @@ if ($page === 'StartPage') {
             case '_DELETE':
                 $username = $_COOKIE['username'];
                 if (isset($username)) {
-                    deleteUser($username);
+                    include 'index.php';
+                    if (deleteUser($username)) {
+                        echo "<script>alert('User deleted!')</script>";
+                    } else {
+                        echo "<script>alert('Error deleting user!')</script>";
+                    }
                     setcookie($username, '', time() - 3600);
-                    unset($username);
+                    unset($_SESSION['username']);
+                    unset($_SESSION['signedin']);
                     session_unset();
                     session_destroy(); 
-                    include 'index.php';
                     exit();
                 } else {
-                    echo "<script>alert('No user is logged in!')</script>";
                     include 'index.php';
+                    echo "<script>alert('No user is logged in!')</script>";
                     exit();
                 }
 
@@ -141,23 +143,23 @@ if ($page === 'StartPage') {
         switch ($command) {
             case 'Submit':
                 if (empty($_POST['title']) || empty($_POST['content'])) {
-                    echo "<script>alert('All fields are required!')</script>";
                     include 'journal.php';
+                    echo "<script>alert('All fields are required!')</script>";
                     exit();
                 }
                 if (empty($_COOKIE['username'])){ 
-                    echo "<script>alert('You must signed in to use that feature!')</script>";
                     require 'index.php';
+                    echo "<script>alert('You must signed in to use that feature!')</script>";
                     exit();
                 }
                 else {
                     if (createEntry($_POST['title'], $_POST['content'])) {
-                        echo "<script>alert('Entry created!')</script>";
                         include 'journal.php';
+                        echo "<script>alert('Entry created!')</script>";
                         exit();
                     } else {
-                        echo "<script>alert('Error creating entry!')</script>";
                         include 'journal.php';
+                        echo "<script>alert('Error creating entry!')</script>";
                         exit();
                     }
                 }

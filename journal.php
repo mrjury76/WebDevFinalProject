@@ -27,7 +27,7 @@
 
             <button type="submit">Submit</button>
         </form>
-        <button id="entries" type="button">View Entries</button>
+        <button id="entries" type="button">Close Entries</button>
     </div>
     
     <div class="bottom" id="journal"></div>
@@ -39,14 +39,16 @@
             console.log("Button Clicked!");
             
             let journal = $('#journal');
-            if (journal.css('display') === "block") {
-                $('#topDiv').css('margin-bottom', '70px');
-                journal.css('display', 'none');
-                $(this).text('View Entries');
-            } else {
+            if (journal.css('display') === "none") {
                 $('#topDiv').css('margin-bottom', '20px');
                 journal.css('display', 'block');
                 $(this).text('Close Entries');
+                
+            } else {
+                $('#topDiv').css('margin-bottom', '70px');
+                journal.css('display', 'none');
+                $(this).text('View Entries');
+                
             }
         });
 

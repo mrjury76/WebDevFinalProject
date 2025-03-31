@@ -1,5 +1,5 @@
 <?php
-    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
+    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');
     if (!$conn) {
         echo "<script>console.error('Could not connect: ' . mysqli_connect_error());</script>";
         exit();
@@ -7,53 +7,47 @@
     
 function createUser($username, $pwd, $email) { 
     global $conn;
-    $hashedPwd = sha1($pwd);
 
-    if (mysqli_connect_errno()) {
-        echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
-        return;
-    }
-    else {
-        $sql = "INSERT INTO users (username, pwd, email, join_date) VALUES ('$username', '$hashedPwd', '$email', SYSDATE())";
-        if (mysqli_query($conn, $sql)) {
-            mysqli_close($conn);
-            return true;
-        } else {
-            echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
-            mysqli_close($conn);
-            return false;
-        }
-    }
+    $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-}
-
-function isValid($u, $p) {
-    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
-    if (mysqli_connect_errno()) {
-        echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
-        return false;
-    }
-
-    elseif (!empty($u) && !empty($p)) {
-        $sql = "SELECT pwd FROM Users WHERE username='$u'";
-        $result = mysqli_query($conn, $sql);
-        
-        if ($result && mysqli_num_rows($result) === 1) {
-            $row = mysqli_fetch_assoc($result);
-            if (password_verify($p, $row['pwd'])) {
-                mysqli_close($conn);
-                return true;
-            }
-        }
-    }
-    else{
+    $sql = "INSERT INTO users (USERNAME, PWD, EMAIL, JOIN_DATE) VALUES ('$username', '$hashedPwd', '$email', SYSDATE())";
+    if (mysqli_query($conn, $sql)) {
+        mysqli_close($conn);
+        return true;
+    } else {
+        echo "<script>console.error('ErrorMODEL: " . mysqli_error($conn) . "');</script>";
         mysqli_close($conn);
         return false;
     }
 }
 
+function isValid($u, $p) {
+    global $conn;
+
+    if (mysqli_connect_errno()) {
+        echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
+        return false;
+    }
+
+    if (!empty($u) && !empty($p)) {
+        $sql = "SELECT PWD FROM users WHERE username='$u'";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+            if (password_verify($p, $row['PWD'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return false;
+}
+
 function getRandomValue($column) {
-    $conn = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
+    global $conn; // = mysqli_connect('localhost', 'w3pthrower', 'w3pthrower136', 'C354_w3pthrower');  
     if (mysqli_connect_errno()) {
         echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
     } else {
@@ -86,8 +80,17 @@ function createEntry($title, $content) {
 
 function deleteUser($username) {
     global $conn;
-    $sql = "DELETE FROM Users WHERE username='$username'";
+    $sql = "DELETE FROM users WHERE username='$username'";
     if (mysqli_query($conn, $sql)) {
+        echo "<script>console.log('Deleting user...');</script>";
+
+        $sql = "DELETE FROM journals WHERE username='$username'";
+        echo "<script>console.log('Deleting journals...');</script>";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM characters WHERE username='$username'";
+        echo "<script>console.log('Deleting characters...');</script>";
+        mysqli_query($conn, $sql);
         mysqli_close($conn);
         return true;
     } else {

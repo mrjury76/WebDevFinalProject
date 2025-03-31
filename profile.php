@@ -5,12 +5,13 @@
         <form action="controller.php" method="post">
             <input type="hidden" name="page" value="StartPage">
             <button type="submit" name="command" value="Logout">Logout</button>
-            <button id="delete" type="button" name="command" value="_DELETE">DELETE USER</button>
+            <button id="delete" type="submit" name="command" value="_DELETE">DELETE USER</button>
         </form>
     </div>
 </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            console.log("Welcome <?php echo isset($_COOKIE['username']) ? htmlspecialchars($_COOKIE['username']) : 'Guest'; ?>");
             let container = document.querySelector(".profile-container");
             let profile = document.getElementById("profile");
             let profileDiv = document.getElementById("profile-div");

@@ -41,6 +41,7 @@
     <script>
 
         $(document).ready(function() {
+            pass
             $('#submit').on('click', function(eobj) {
             let password = $('#password').val();
             let confirmPassword = $('#confirm_password').val();
