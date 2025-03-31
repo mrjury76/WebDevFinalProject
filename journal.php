@@ -35,10 +35,11 @@
     <?php include 'footer.php'; ?>
     
     <script>
-        document.getElementById("header").addEventListener('click', function(){
-                console.log("Button Clicked!");
-                displayEntries(response);
-            });
+        // $('#header').on('click', function() {
+        //         console.log("Button Clicked!");
+        //         // Assuming 'response' is defined elsewhere or replace it with actual data
+        //         displayEntries(response);
+        //     });
 
         $(document).ready(function() {
             console.log("Document Ready");

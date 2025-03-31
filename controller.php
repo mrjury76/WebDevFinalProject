@@ -163,10 +163,10 @@ if ($page === 'StartPage') {
                 }
 
             case 'View':
-                // header('Content-Type: application/json');
                 $username = $_COOKIE['username'];
                 $entries = queryEntries($username);
                 if (!empty($entries)) {
+                    header('Content-Type: application/json');
                     echo json_encode(['status' => 'success', 'entries' => $entries]);
                     exit();
                 } else {
