@@ -15,9 +15,9 @@
         <div class="bottom">
             <div>
                 <h1 style="width: 250px;">Welcome to D&D Character Creator</h1>
-                <button class="character" id="create" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Character Creator</button>
-                <button class="character" id="showButton" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Characters</button>
-                <button class="character" id="delete" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Delete Characters</button>
+                <button class="character" id="create"     style="display: inline; height: 80px; width: 160px;">Character Creator</button>
+                <button class="character" id="showButton" style="display: inline; height: 80px; width: 160px;">View Characters</button>
+                <button class="character" id="delete"     style="display: inline; height: 80px; width: 160px;">Delete Characters</button>
             </div>
             <form style="display: none;" id="createCharacter" action="controller.php" method="post">
                 <input type="hidden" name="page" value="Characters">
@@ -98,13 +98,13 @@
                         
                     </tr>
                     <tr>
-                        <td colspan="6" style="text-align: center; background-color: black">
+                        <td colspan="6" style="text-align: center;">
                             <button type="submit" style="height: 80px; font-weight: bold;">Create Character</button>    </td>
                     </tr>
                 </table>
             </form>
 
-            <div id="showDiv" style="display: none;">
+            <div id="showDiv" style="display: none; margin-right: 10%; margin-left: 10%;"></div>
 
             </div>
         </div>
@@ -114,8 +114,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    let showCharacter = $('#showDiv');
+    let createCharacter = $('#createCharacter');
     $('#showButton').on('click', function() {
-        let showCharacter = $('#showDiv');
         if(showCharacter.css('display') === "none") {
             $('#createCharacter').css('display', 'none');
             $.ajax({
@@ -140,7 +141,6 @@
     });
 
         $('#create').on('click', function() {
-            let createCharacter = $('#createCharacter');
             if (createCharacter.css('display') === "none") {
                 showCharacter.css('display', 'none');
                 createCharacter.css('display', 'block');
