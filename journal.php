@@ -12,7 +12,7 @@
 <body>
     <?php include 'header.php'?>
     <?php include 'profile.php'?>
-    <div id="topDiv">
+    <div class="bottom" id="topDiv">
         <h1>New Entry</h1>
         <form action="controller.php" method="post">
             <input type="hidden" name="page" value="Journal">
@@ -27,19 +27,32 @@
 
             <button type="submit">Submit</button>
         </form>
-        <button id="entries" type="button">Close Entries</button>
+        <button id="entries" type="button">View Entries</button>
     </div>
     
-    <div class="bottom" id="journal"></div>
+    <div class="bottom" id="journal" style="display:none"></div>
 
     <?php include 'footer.php'; ?>
     
     <script>
         $('button#entries').on('click', function() {
-            console.log("Button Clicked!");
-            
             let journal = $('#journal');
             if (journal.css('display') === "none") {
+                $.ajax({
+                    url: 'controller.php',
+                    type: 'POST',
+                    data: {
+                        page: 'Journal',
+                        command: 'View',
+                    },
+                    success: function(data) {
+                        console.log("AJAX Success:", data);
+                        displayEntries(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                    }
+                });
                 $('#topDiv').css('margin-bottom', '20px');
                 journal.css('display', 'block');
                 $(this).text('Close Entries');
@@ -50,28 +63,6 @@
                 $(this).text('View Entries');
                 
             }
-        });
-
-        $(document).ready(function() {
-            console.log("Document Ready");
-
-
-            $.ajax({
-                url: 'controller.php',
-                type: 'POST',
-                data: {
-                    page: 'Journal',
-                    command: 'View',
-                },
-                success: function(data) {
-                    console.log("AJAX Success:", data);
-                    displayEntries(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error:", error);
-                }
-            });
-            
         });
 
         function displayEntries(data) {

@@ -112,6 +112,7 @@ function queryEntries($username) {
             'created_date' => $row['date_created']
         ];
     }
+    mysqli_close($conn);
 
     return $entries;
 }
@@ -119,8 +120,12 @@ function queryEntries($username) {
 function queryCharacter($username) {
     global $conn;
 
-    $sql = "SELECT * FROM characters WHERE username='$username'";
+    $sql = "SELECT name, level, class, race, str, dex, con, intc, wis, cha FROM characters WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
+    if ($result) {
+    } else {
+        echo "<script>console.error('Error querying character: " . mysqli_error($conn) . "');</script>";
+    }
     
     $character = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -129,8 +134,15 @@ function queryCharacter($username) {
                 'level' => $row['level'],
                 'class' => $row['class'],
                 'race' => $row['race'],
+                'str' => $row['str'],
+                'dex' => $row['dex'],
+                'con' => $row['con'],
+                'intc' => $row['intc'],
+                'wis' => $row['wis'],
+                'cha' => $row['cha'],
             ];
         }
+        mysqli_close($conn);
 
     return $character;
 }

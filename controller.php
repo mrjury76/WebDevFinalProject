@@ -115,6 +115,18 @@ if ($page === 'StartPage') {
                     echo "<script>alert('Error creating character!')</script>";
                     exit();
                 }
+
+            case 'ShowCharacter':
+                $username = $_COOKIE['username'];
+                $character = queryCharacter($username);
+                if (!empty($character)) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['status' => 'success', 'character' => $character]);
+                    exit();
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'No character found.']);
+                    exit();
+                }
         }
 
     }

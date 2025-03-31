@@ -15,8 +15,8 @@
         <div class="bottom">
             <div>
                 <h1 style="width: 250px;">Welcome to D&D Character Creator</h1>
-                <button class="character" id="create" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;"> Create New Character</button>
-                <button class="character" id="show" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Show Characters</button>
+                <button class="character" id="create" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Character Creator</button>
+                <button class="character" id="showButton" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Characters</button>
                 <button class="character" id="delete" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Delete Characters</button>
             </div>
             <form style="display: none;" id="createCharacter" action="controller.php" method="post">
@@ -103,6 +103,10 @@
                     </tr>
                 </table>
             </form>
+
+            <div id="showDiv" style="display: none;">
+
+            </div>
         </div>
     <?php include 'footer.php'?>
 </body>
@@ -110,25 +114,86 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        console.log("Document Ready");
+    $('#showButton').on('click', function() {
+        let showCharacter = $('#showDiv');
+        if(showCharacter.css('display') === "none") {
+            $('#createCharacter').css('display', 'none');
+            $.ajax({
+                url: 'controller.php',
+                type: 'POST',
+                data: { 
+                    page: 'Characters',
+                    command: 'ShowCharacter' },
+                success: function(data) {
+                    console.log("AJAX Success", data);
+                    displayCharacter(data);
+                },
+                
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + error);
+                }
+            }); 
+            showCharacter.css('display', 'block');
+        } else {
+            showCharacter.css('display', 'none');
+        }
+    });
 
         $('#create').on('click', function() {
-            console.log("Button Clicked!");
             let createCharacter = $('#createCharacter');
             if (createCharacter.css('display') === "none") {
+                showCharacter.css('display', 'none');
                 createCharacter.css('display', 'block');
-                $(this).text('Close Character Creation')
-                $(this).css('height', '100px');
-                $(this).css('width', '200px');
-                
             } else {
                 createCharacter.css('display', 'none');
-                $(this).text('Create New Character');
-                $(this).css('height', '80px');
-                $(this).css('width', '160px');
-                
             }
         });
-    });
+        
+        
+        $('#delete').on('click', function() {
+            console.log("Button Clicked!");
+            let deleteCharacter = $('#deleteCharacter');
+            if (deleteCharacter.css('display') === "none") {
+                deleteCharacter.css('display', 'block');
+                
+            } else {
+                deleteCharacter.css('display', 'none');
+            }
+        });
+
+            function displayCharacter(data) {
+                showCharacter.empty();
+
+                if (data.status === 'success') {
+                    data.character.forEach(function(character) {
+                    let characterHtml = '<table class="character-table">';
+                    characterHtml += '<tr><th colspan="3">Character Name:</th><td colspan="3">' + character.name + '</td></tr>';
+                    characterHtml += '<tr><th colspan="3">Level:</th><td colspan="3">' + character.level + '</td></tr>';
+                    characterHtml += '<tr><th colspan="3">Class:</th><td colspan="3">' + character.class + '</td></tr>';
+                    characterHtml += '<tr><th colspan="3">Race:</th><td colspan="3">' + character.race + '</td></tr>';
+                    characterHtml += '<tr>';
+                    characterHtml += '<th>Strength:</th>';
+                    characterHtml += '<th>Dexterity:</th>';
+                    characterHtml += '<th>Constitution:</th>';
+                    characterHtml += '<th>Intelligence:</th>';
+                    characterHtml += '<th>Wisdom:</th>';
+                    characterHtml += '<th>Charisma:</th>';
+                    characterHtml += '</tr>';
+                    characterHtml += '<tr>';
+                    characterHtml += '<td>' + character.str + '</td>';
+                    characterHtml += '<td>' + character.dex + '</td>';
+                    characterHtml += '<td>' + character.con + '</td>';
+                    characterHtml += '<td>' + character.intc + '</td>';
+                    characterHtml += '<td>' + character.wis + '</td>';
+                    characterHtml += '<td>' + character.cha + '</td>';
+                    characterHtml += '</tr>';
+                    characterHtml += '</table>';
+                    showCharacter.append(characterHtml);
+                });
+            
+                } else {
+                    $('#showDiv').html('<p>No characters found.</p>');
+                }
+        }
+
 </script>
