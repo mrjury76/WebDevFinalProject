@@ -113,5 +113,23 @@ function queryEntries($username) {
     return $entries;
 }
 
+function queryCharacter($username) {
+    global $conn;
+
+    $sql = "SELECT * FROM characters WHERE username='$username'";
+    $result = mysqli_query($conn, $sql);
+    
+    $character = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $character[] = [
+                'title' => $row['title'],
+                'content' => $row['content'],
+                'created_date' => $row['date_created']
+            ];
+        }
+
+    return $character;
+}
+
 
 ?>

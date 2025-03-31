@@ -192,6 +192,21 @@ button#header {
   cursor: pointer;
 }
 
+button#entries {
+  display: inline-block;
+  margin: 10px 10px;
+  border-radius: 10px;
+  background-color: #ad151a;
+  color: white;
+  font-size: 1.0rem;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+  width: 170px;
+  height: 60px;
+  cursor: pointer;
+}
+
 button#delete{
   height: 80px;
 }

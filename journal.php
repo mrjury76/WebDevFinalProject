@@ -12,7 +12,7 @@
 <body>
     <?php include 'header.php'?>
     <?php include 'profile.php'?>
-    <div>
+    <div id="topDiv">
         <h1>New Entry</h1>
         <form action="controller.php" method="post">
             <input type="hidden" name="page" value="Journal">
@@ -27,7 +27,7 @@
 
             <button type="submit">Submit</button>
         </form>
-        <button id="header" type="button">View Entries</button>
+        <button id="entries" type="button">View Entries</button>
     </div>
     
     <div class="bottom" id="journal"></div>
@@ -35,11 +35,20 @@
     <?php include 'footer.php'; ?>
     
     <script>
-        // $('#header').on('click', function() {
-        //         console.log("Button Clicked!");
-        //         // Assuming 'response' is defined elsewhere or replace it with actual data
-        //         displayEntries(response);
-        //     });
+        $('button#entries').on('click', function() {
+            console.log("Button Clicked!");
+            
+            let journal = $('#journal');
+            if (journal.css('display') === "block") {
+                $('#topDiv').css('margin-bottom', '70px');
+                journal.css('display', 'none');
+                $(this).text('View Entries');
+            } else {
+                $('#topDiv').css('margin-bottom', '20px');
+                journal.css('display', 'block');
+                $(this).text('Close Entries');
+            }
+        });
 
         $(document).ready(function() {
             console.log("Document Ready");
