@@ -313,6 +313,29 @@ if ($page === 'StartPage') {
         }
     }
 
+    
+
+    elseif ($page === 'EditCharacter') {
+        switch ($command) {
+            case 'Edit':
+                $username = $_COOKIE['username'];
+                $character = queryCharacter($username);
+                if (!empty($character)) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['status' => 'success', 'character' => $character]);
+                    exit();
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'No character found.']);
+                    exit();
+                }
+            
+            default:
+                echo "<p>Unknown command</p>";
+                exit();
+        }
+    }
+
+
     else {
         include 'index.php';
         exit();
