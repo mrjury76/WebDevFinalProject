@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D Homepage</title>
     <link rel="stylesheet" href="public/styles.css">
-    <link rel="icon" href="images/icon.webp" type="image/png">
+    <link rel="icon" href="public/images/icon.webp" type="image/webp">
 </head>
 <body>
     <?php include 'header.php'?>
@@ -15,7 +15,9 @@
         <div class="bottom">
             <div>
                 <h1 style="width: 250px;">Welcome to D&D Character Creator</h1>
-                <button id="create" style="height: 80px; width: 160px; margin-bottom: 20px;"> Create New Character</button>
+                <button class="character" id="create" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;"> Create New Character</button>
+                <button class="character" id="show" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Show Characters</button>
+                <button class="character" id="delete" style="display: inline; height: 80px; width: 160px; margin-bottom: 20px;">Delete Characters</button>
             </div>
             <form style="display: none;" id="createCharacter" action="controller.php" method="post">
                 <input type="hidden" name="page" value="Characters">
@@ -101,56 +103,18 @@
                     </tr>
                 </table>
             </form>
-
-
-
-
-
-
-            <!-- <table>
-                    <tr>
-                        <th>Character Name</th>
-                        <th>Class</th>
-                        <th>Level</th>
-                    </tr>
-                    <tr>
-                        <td>Example Name</td>
-                        <td>Example Class</td>
-                        <td>1</td>    
-                    </tr>
-            </table>
-            <table>
-                    <tr>
-                        <th>Strength</th>
-                        <th>Dexterity</th>
-                        <th>Constitution</th>
-                        <th>Intelligence</th>
-                        <th>Wisdom</th>
-                        <th>Charisma</th>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
-            </table> -->
         </div>
     <?php include 'footer.php'?>
 </body>
 </html>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).ready(function() {
         console.log("Document Ready");
 
         $('#create').on('click', function() {
             console.log("Button Clicked!");
-            // $('#createCharacter').toggle();
             let createCharacter = $('#createCharacter');
             if (createCharacter.css('display') === "none") {
                 createCharacter.css('display', 'block');
@@ -168,54 +132,3 @@
         });
     });
 </script>
-
-
-
-<!-- <script>
-    $(document).ready(function() {
-        console.log("Document Ready");
-
-        $('#create').on('click', function() {
-            console.log("Button Clicked!");
-            let characterName = $('#characterName').val();
-            let className = $('#class').val();
-            let level = $('select[name="level"]').val();
-            let race = $('select[name="race"]').val();
-            let strength = $('input[name="Strength"]').val();
-            let dexterity = $('input[name="Dexterity"]').val();
-            let constitution = $('input[name="Constitution"]').val();
-            let intelligence = $('input[name="Intelligence"]').val();
-            let wisdom = $('input[name="Wisdom"]').val();
-            let charisma = $('input[name="Charisma"]').val();
-
-            if (characterName && className) {
-                $.ajax({
-                    url: 'controller.php',
-                    type: 'POST',
-                    data: {
-                        page: 'Characters',
-                        command: 'CreateCharacter',
-                        characterName: characterName,
-                        class: className,
-                        level: level,
-                        race: race,
-                        strength: strength,
-                        dexterity: dexterity,
-                        constitution: constitution,
-                        intelligence: intelligence,
-                        wisdom: wisdom,
-                        charisma: charisma
-                    },
-                    success: function(data) {
-                        console.log("AJAX Success:", data);
-                        // Handle success response here
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                    }
-                });
-            } else {
-                alert("Please fill in all fields.");
-            }
-        });
-    }); -->

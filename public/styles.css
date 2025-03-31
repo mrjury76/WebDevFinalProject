@@ -216,6 +216,14 @@ button#delete{
   height: 80px;
 }
 
+button.character {
+  display: inline; 
+  height: 80px; 
+  width: 160px; 
+  margin: 20px;
+  /* margin-bottom: 20px; */
+}
+
 a:hover {
   background-color: #d03237;
   scale: 1.1 ;

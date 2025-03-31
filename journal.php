@@ -18,8 +18,8 @@
             <input type="hidden" name="page" value="Journal">
             <input type="hidden" name="command" value="Submit">
 
-            <label  for="title"><p>Title:</p></label>
-            <input  type="text" id="title" name="title" required>
+            <label style="display:inline" for="title"><p>Title:</p></label>
+            <input style="display:inline" type="text" id="title" name="title" required>
             <br><br>
 
             <label for="content"><p>Content:</p></label>
