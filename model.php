@@ -7,23 +7,24 @@
     
 function createUser($username, $pwd, $email) { 
     global $conn;
-    $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+    $hashedPwd = sha1($pwd);
 
     if (mysqli_connect_errno()) {
         echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
         return;
     }
     else {
-        $sql = "INSERT INTO users (username, pwd, email) VALUES ('$username', '$hashedPwd', '$email', SYSDATE())";
+        $sql = "INSERT INTO users (username, pwd, email, join_date) VALUES ('$username', '$hashedPwd', '$email', SYSDATE())";
         if (mysqli_query($conn, $sql)) {
             mysqli_close($conn);
-            exit();
+            return true;
         } else {
             echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
+            mysqli_close($conn);
+            return false;
         }
     }
 
-    mysqli_close($conn);
 }
 
 function isValid($u, $p) {
@@ -56,16 +57,17 @@ function getRandomValue($column) {
     if (mysqli_connect_errno()) {
         echo "<script>console.error('Failed to connect to MySQL: " . mysqli_connect_error() . "');</script>";
     } else {
-        $sql = "SELECT `$column` FROM NPCs ORDER BY RAND() LIMIT 1";
+        $sql = "SELECT `$column` FROM npcs ORDER BY RAND() LIMIT 1";
         $result = mysqli_query($conn, $sql);
         
         if ($result && mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
+            echo "<script>console.log('SUCCESS!');</script>";
             return $row[$column];
         }
     }
     mysqli_close($conn);
-    return null;
+    exit(); //        return null;
 }
 
 function createEntry($title, $content) {

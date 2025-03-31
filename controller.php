@@ -4,10 +4,14 @@ if (empty($_POST['page'])) {
     include 'index.php'; 
     exit();
 } 
-// if (!isset($_COOKIE['username'])) {
-//     include 'index.php';
-//     exit;
+// if (isset($_COOKIE['username'])) {
+//     include_once 'home.php';
+//     exit();
 // }
+if (!isset($_COOKIE['username'])) {
+    include 'index.php';
+    exit;
+}
 
 require_once 'model.php';
 $page = $_POST['page'];
@@ -34,27 +38,27 @@ if ($page === 'StartPage') {
                     exit();
                 }
             
-            case 'Join':  
-                // if($_POST['password'] !== $_POST['confirm_password']) {
-                //     echo "<script>alert('Passwords do not match!');</script>";
-                //     include 'register.php';
-                //     exit();
-                // }
-                if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
+            case 'Join':
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $email = $_POST['email'];
+
+                if (empty($username) || empty($password) || empty($email)) {
                     echo "<script>alert('All fields are required!')</script>";
                     include 'register.php';
                     exit();
                 }
-                if(createUser($_POST['username'], $_POST['password'], $_POST['email'])) {
-                        include 'home.php';
-                        echo "<script>alert('User Created!')</script>";
-                        exit();
-                    }
-                    // else{
-                    //     echo "<script>alert('Username already exists!')</script>";
-                    //     include 'index.php';
-                    //     exit();
-                    // }
+                elseif(createUser($username, $password, $email)) {
+                    isValid($username, $password);
+                    echo "<script>alert('User Created!')</script>";
+                    setcookie('username', $username, time() + 30 * 24 * 60 * 60); //keeps cookie for a month
+                    $_SESSION['username'] = $username;
+                    $_SESSION['signedin'] = 'YES';
+                    include 'home.php';
+                }
+                exit();
+                    
+
                 
             
             case 'Logout':
