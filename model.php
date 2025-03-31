@@ -125,13 +125,31 @@ function queryCharacter($username) {
     $character = [];
         while ($row = mysqli_fetch_assoc($result)) {
             $character[] = [
-                'title' => $row['title'],
-                'content' => $row['content'],
-                'created_date' => $row['date_created']
+                'name' => $row['name'],
+                'level' => $row['level'],
+                'class' => $row['class'],
+                'race' => $row['race'],
             ];
         }
 
     return $character;
+}
+
+function createCharacter($username, $name, $level, $class, $race, $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma) {
+    global $conn;
+
+    $sql = "INSERT INTO characters (username, name, level, class, race, str, dex, con, intc, wis, cha) 
+            VALUES ('$username', '$name', $level, '$class', '$race', $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma)";
+    
+    if (mysqli_query($conn, $sql)) {
+        echo "<script>console.log('Character created successfully!');</script>";
+        mysqli_close($conn);
+        return true;
+    } else {
+        echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
+        mysqli_close($conn);
+        return false;
+    }
 }
 
 

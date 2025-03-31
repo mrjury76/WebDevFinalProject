@@ -52,11 +52,18 @@ if ($page === 'StartPage') {
                 
             
             case 'Logout':
-                setcookie('username', $username, time() - 3600);
-                session_unset();
-                session_destroy(); 
-                include 'index.php';
-                exit();
+                if (isset($_COOKIE['username'])) {
+                    $username = $_COOKIE['username'];
+                    setcookie('username', $username, time() - 3600);
+                    session_unset();
+                    session_destroy(); 
+                    include 'index.php';
+                    exit();
+                } else {
+                    // include 'index.php';
+                    // echo "<script>alert('No user is logged in!')</script>";
+                }
+                
 
             case '_DELETE':
                 $username = $_COOKIE['username'];
@@ -85,9 +92,36 @@ if ($page === 'StartPage') {
         }
     }
 
+    elseif ($page ==='Characters') {
+        switch ($command) {
+            case 'Create':
+                $username = $_COOKIE['username'];
+                $name = $_POST['characterName'];
+                $level = $_POST['level'];
+                $class = $_POST['class'];
+                $race = $_POST['race'];
+                $strength = $_POST['Strength'];
+                $dexterity = $_POST['Dexterity'];
+                $constitution = $_POST['Constitution'];
+                $intelligence = $_POST['Intelligence'];
+                $wisdom = $_POST['Wisdom'];
+                $charisma = $_POST['Charisma'];
+                if(createCharacter($username, $name, $level, $class, $race, $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma)) {
+                    include 'home.php';
+                    echo "<script>alert('Character created!')</script>";
+                    exit();
+                } else {
+                    include 'home.php';
+                    echo "<script>alert('Error creating character!')</script>";
+                    exit();
+                }
+        }
+
+    }
+
     elseif($_POST['page'] === 'Dice'){
         include 'dice.php';
-        switch ($_POST['command']) {
+        switch ($command) {
             case 'Roll':
                     $sum = 0;
                     $numDice = $_POST['dice'];
