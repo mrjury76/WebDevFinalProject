@@ -138,19 +138,6 @@ if ($page === 'StartPage') {
                     echo json_encode(['status' => 'error', 'message' => 'No character found.']);
                     exit();
                 }
-
-            case 'DeleteCharacter':
-                $username = $_COOKIE['username'];
-                $delete = deleteCharacter($_POST['characterName'], $username);
-                if ($delete) {
-                    include 'home.php';
-                    echo "<script>alert('Character deleted!')</script>";
-                    exit();
-                } else {
-                    include 'home.php';
-                    echo "<script>alert('Error deleting character!')</script>";
-                    exit();
-                }
         }
 
     }
@@ -323,45 +310,6 @@ if ($page === 'StartPage') {
                 exit();
         }
     }
-
-    
-
-    elseif ($page === 'EditCharacter') {
-        switch ($command) {
-            case 'ShowCharacters':
-                $username = $_COOKIE['username'];
-                $character = queryCharacterWithID($username);
-                if (!empty($character)) {
-                    header('Content-Type: application/json');
-                    echo json_encode(['status' => 'success', 'character' => $character]);
-                    exit();
-                } else {
-                    echo json_encode(['status' => 'error', 'message' => 'No character found.']);
-                    exit();
-                }
-            
-            case 'EditCharacter':
-                $username = $_COOKIE['username'];
-                $characterId = $_POST['characterId'];
-                $character = queryCharacterById($username, $characterId);
-                if (!empty($character)) {
-                    header('Content-Type: application/json');
-                    echo json_encode(['status' => 'success', 'character' => $character]);
-                    exit();
-                } else {
-                    echo json_encode(['status' => 'error', 'message' => 'No character found.']);
-                    exit();
-                }
-
-            case 'Update':
-                $username = $_COOKIE['username'];
-
-            default:
-                echo "<p>Unknown command</p>";
-            exit();
-        }
-    }
-
 
     else {
         include 'index.php';
