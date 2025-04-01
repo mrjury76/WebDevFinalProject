@@ -109,7 +109,7 @@
                 characterHtml += '<tr>';
                 characterHtml += '<th colspan="3"><label>Class:</label></th>';
                 characterHtml += '<td colspan="3">';
-                characterHtml += '<select name="class" value="'+ character.class + '>';
+                characterHtml += '<select name="class" value="' + character.class + '">';
                 characterHtml += '<option value="barbarian">Barbarian</option>';
                 characterHtml += '<option value="bard">Bard</option>';
                 characterHtml += '<option value="cleric">Cleric</option>';
@@ -128,7 +128,7 @@
                 characterHtml += '<tr>';
                 characterHtml += '<th colspan="3"><label>Race:</label></th>';
                 characterHtml += '<td colspan="3">';
-                characterHtml += '<select name="race" value="'+ character.race + '>';
+                characterHtml += '<select name="race" value="' + character.race + '">';
                 characterHtml += '<option value="human">Human</option>';
                 characterHtml += '<option value="elf">Elf</option>';
                 characterHtml += '<option value="dwarf">Dwarf</option>';

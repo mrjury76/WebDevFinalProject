@@ -5,7 +5,7 @@
         exit();
     }
     
-function createUser($username, $pwd, $email) { 
+function createUser($username, $pwd, $email) {
     global $conn;
 
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
@@ -15,7 +15,7 @@ function createUser($username, $pwd, $email) {
         mysqli_close($conn);
         return true;
     } else {
-        echo "<script>console.error('ErrorMODEL: " . mysqli_error($conn) . "');</script>";
+        echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
         mysqli_close($conn);
         return false;
     }
@@ -123,9 +123,7 @@ function queryCharacter($username) {
     $sql = "SELECT name, level, class, race, str, dex, con, intc, wis, cha FROM characters WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
-    } else {
-        echo "<script>console.error('Error querying character: " . mysqli_error($conn) . "');</script>";
-    }
+    } 
     
     $character = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -169,9 +167,7 @@ function queryCharacterWithID($username) {
                 'cha' => $row['cha'],
             ];
         }
-    } else {
-        echo "<script>console.error('Error querying character: " . mysqli_error($conn) . "');</script>";
-    }
+    } 
         mysqli_close($conn);
 
     return $character;
@@ -262,5 +258,19 @@ function queryCharacterById($username, $id) {
     }
 }
 
+function editProfile($username, $email, $password) {
+    global $conn;
+    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE users SET email='$email', PWD='$hashedPwd' WHERE username='$username'";
+    if (mysqli_query($conn, $sql)) {
+        mysqli_close($conn);
+        return true;
+    } else {
+        echo "<script>console.error('Error: " . mysqli_error($conn) . "');</script>";
+        mysqli_close($conn);
+        return false;
+    }
+}
 
 ?>

@@ -1,11 +1,12 @@
 <div class="profile-container">
     <img id="profile" src="public/images/profilePic.webp">
-    <div style="z-index: 0;" id="profile-div">
+    <div style="z-index: -1; height:auto;" id="profile-div">
         <h1 style="z-index:2;" id="profile-h1">Welcome <?php echo isset($_COOKIE['username']) ? htmlspecialchars($_COOKIE['username']) : 'Guest'; ?></h1>
         <form action="controller.php" method="post">
             <input type="hidden" name="page" value="StartPage">
             <button type="submit" name="command" value="Logout">Logout</button>
             <button id="delete" type="submit" name="command" value="_DELETE">DELETE USER</button>
+            <button id="editProfile" type="submit" name="command" value="EditProfile">Edit Profile</button>
         </form>
     </div>
 </div>

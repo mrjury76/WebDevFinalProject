@@ -12,11 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     switch ($page) {
         case '':
-            // if (!empty($_COOKIE['username'])) { 
-            //     include 'home.php'; 
-            // } else {
                 include 'start.php';
-            // }
             exit();
 
         case 'StartPage':
@@ -26,9 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     $password = $_POST['password'];
                     if (isValid($username, $password)) {
                         setcookie('username', $username, time() + 30 * 24 * 60 * 60); // keeps cookie for a month
-                        session_start();
-                        $_SESSION['username'] = $username;
-                        $_SESSION['signedin'] = 'YES';
                         include 'home.php';
                         exit();
                     } else {
@@ -48,19 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                         exit();
                     } elseif (createUser($username, $password, $email)) {
                         setcookie('username', $username, time() + 30 * 24 * 60 * 60); // keeps cookie for a month
-                        session_start();
-                        echo "<script> console.log('USERCREATEd') </script>";
-                        $_SESSION['username'] = $username;
-                        $_SESSION['signedin'] = 'YES';
                         include 'home.php';
+                    } else {
+                        include 'start.php';
                     }
                     exit();
 
                 case 'Logout':
                     if (isset($_COOKIE['username'])) {
                         setcookie('username', $_COOKIE['username'], time() - 3600);
-                        // session_unset();
-                        // session_destroy(); 
                         include 'start.php';
                         exit();
                     } else {
@@ -79,14 +68,33 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             echo "<script>alert('Error deleting user!')</script>";
                         }
                         setcookie($username, '', time() - 3600);
-                        unset($_SESSION['username']);
-                        unset($_SESSION['signedin']);
-                        session_unset();
-                        session_destroy(); 
                         exit();
                     } else {
                         include 'start.php';
                         echo "<script>alert('No user is logged in!')</script>";
+                        exit();
+                    }
+
+                case 'EditProfile':
+                    include 'editProfile.php';
+                    exit();
+
+                case 'UpdateProfile':
+                    $username = $_POST['username'];
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    if (empty($username) || empty($email) || empty($password)) {
+                        include 'profile.php';
+                        echo "<script>alert('All fields are required!')</script>";
+                        exit();
+                    } elseif (editProfile($username, $email, $password)) {
+                            include 'start.php';
+                            echo "<script>alert('Profile updated!')</script>";
+                            exit();
+                        }
+                    else {
+                        include 'profile.php';
+                        echo "<script>alert('Error updating profile!')</script>";
                         exit();
                     }
 
