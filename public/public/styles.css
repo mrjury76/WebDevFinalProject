@@ -1,0 +1,287 @@
+* {
+  font: 1.3rem 'Arial', sans-serif;
+}
+
+body {
+  background: url(images/background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+div {
+  display: block;
+  background-color: #f0e68c;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  margin: 15px 15px auto;
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 10px;
+}
+
+div.bottom {
+  margin-bottom: 70px;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th, table td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #ad151a;
+  color: white;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table td:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 140px;
+  height: 50px;
+  background-color: #ad151a;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #d03237;
+  scale: 1.1 ;
+}
+
+button#NPC {
+  height: 80px;
+}
+
+
+.dice-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.clickable {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.profile-container {
+  background: none;
+  position: fixed;
+  top: 0;
+  right: 20px;
+  transform: translateY(0);
+  width: 300px;
+  height: 40%;
+  overflow-y: auto;
+}
+
+#profile {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  margin: 0;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 75px;
+  width: 75px;
+  transition: transform 0.2s ease;
+}
+
+#profile:hover {
+  background-color: white;
+  border-radius: 80px;
+  padding: 5px;
+  box-sizing: border-box;
+  transform: translateX(-50%) scale(1.2);
+  cursor: pointer;
+}
+
+#profile-div {
+  all: unset;
+  position: absolute;
+  top: 110px; 
+  padding: 0;
+  background: white;
+  width: 92%; 
+  border-radius: 10px;
+  display: none; 
+  text-align: right;
+  z-index: 1000; 
+}
+
+/* #profile-div p {
+  color: white;
+} */
+
+p {
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  width: 300px;
+  max-width: 80%;
+}
+
+h1 {
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 1.3rem;
+  padding: 10px;
+  text-align: center;
+  background-color: #ad151a;
+  color: white;
+  font-weight: bold;
+  width: 25%;
+}
+
+span {
+  display: inline-block;
+  margin: 10px auto;
+}
+
+#profile-h1 {
+  width: 80%;
+}
+
+button#header { 
+  display: inline-block;
+  margin: 10px 10px;
+  border-radius: 10px;
+  background-color: #ad151a;
+  color: white;
+  font-size: 1.0rem;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+  width: 170px;
+  height: 60px;
+  cursor: pointer;
+}
+
+button#entries {
+  display: inline-block;
+  margin: 10px 10px;
+  border-radius: 10px;
+  background-color: #ad151a;
+  color: white;
+  font-size: 1.0rem;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+  width: 170px;
+  height: 60px;
+  cursor: pointer;
+}
+
+button#delete{
+  height: 80px;
+}
+
+button.character {
+  display: inline; 
+  height: 80px; 
+  width: 160px; 
+  margin: 20px;
+  /* margin-bottom: 20px; */
+}
+
+a:hover {
+  background-color: #d03237;
+  scale: 1.1 ;
+}
+
+div.login-container {
+  display: block;
+  margin: auto auto;
+  height: 50vh;
+}
+
+div.form-group {
+  display: block;
+  margin: 10px 10px;
+  padding: 10px;
+  background-color: #add8e6;
+  border-radius: 10px;
+  width: 43%;
+  text-align: left;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+
+footer{
+  display: block;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width: 100%;
+  height: 40px;
+}
+
+footer p {
+  all:unset;
+  font-size: 1.3rem;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  color: #ad151a;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+#remember_me {
+  margin: 20px;
+
+}

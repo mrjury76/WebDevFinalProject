@@ -147,6 +147,37 @@ function queryCharacter($username) {
     return $character;
 }
 
+function queryCharacterWithID($username) {
+    global $conn;
+
+    $sql = "SELECT * FROM characters WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        $character = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $character[] = [
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'level' => $row['level'],
+                'class' => $row['class'],
+                'race' => $row['race'],
+                'str' => $row['str'],
+                'dex' => $row['dex'],
+                'con' => $row['con'],
+                'intc' => $row['intc'],
+                'wis' => $row['wis'],
+                'cha' => $row['cha'],
+            ];
+        }
+    } else {
+        echo "<script>console.error('Error querying character: " . mysqli_error($conn) . "');</script>";
+    }
+        mysqli_close($conn);
+
+    return $character;
+}
+
+
 function createCharacter($username, $name, $level, $class, $race, $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma) {
     global $conn;
 
@@ -154,7 +185,6 @@ function createCharacter($username, $name, $level, $class, $race, $strength, $de
             VALUES ('$username', '$name', $level, '$class', '$race', $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma)";
     
     if (mysqli_query($conn, $sql)) {
-        echo "<script>console.log('Character created successfully!');</script>";
         mysqli_close($conn);
         return true;
     } else {
@@ -206,39 +236,21 @@ function queryCharacterById($username, $id) {
     return $character;
 }
 
-function queryCharacterWithID($username) {
+function updateCharacter($character) {
     global $conn;
 
-    $sql = "SELECT * FROM characters WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $character = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $character[] = [
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'level' => $row['level'],
-                'class' => $row['class'],
-                'race' => $row['race'],
-                'str' => $row['str'],
-                'dex' => $row['dex'],
-                'con' => $row['con'],
-                'intc' => $row['intc'],
-                'wis' => $row['wis'],
-                'cha' => $row['cha'],
-            ];
-        }
-    } else {
-        echo "<script>console.error('Error querying character: " . mysqli_error($conn) . "');</script>";
-    }
-        mysqli_close($conn);
-
-    return $character;
-}
-
-function updateCharacter($id, $name, $level, $class, $race, $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma) {
-    global $conn;
-    $username = $_COOKIE['username'];
+    $id = $character['id'];
+    $username = $character['username'];
+    $name = $character['name'];
+    $level = $character['level'];
+    $class = $character['class'];
+    $race = $character['race'];
+    $strength = $character['str'];
+    $dexterity = $character['dex'];
+    $constitution = $character['con'];
+    $intelligence = $character['intc'];
+    $wisdom = $character['wis'];
+    $charisma = $character['cha'];
 
     $sql = "UPDATE characters 
             SET name = '$name', 
