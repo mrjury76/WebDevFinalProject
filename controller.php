@@ -86,6 +86,17 @@ if ($page === 'StartPage') {
                     exit();
                 }
 
+            case 'EditProfile':
+                $username = $_COOKIE['username'];
+                if (isset($username)) {
+                    include 'editProfile.php';
+                    exit();
+                } else {
+                    include 'index.php';
+                    echo "<script>alert('No user is logged in!')</script>";
+                    exit();
+                }
+
             default:
                 echo "<script>alert('Unknown Command')</script>";
                 exit();

@@ -6,6 +6,7 @@
             <input type="hidden" name="page" value="StartPage">
             <button type="submit" name="command" value="Logout">Logout</button>
             <button id="delete" type="submit" name="command" value="_DELETE">DELETE USER</button>
+            <button id="edit" type="submit" name="command" value="EditProfile">Edit Profile</button>
         </form>
     </div>
 </div>
