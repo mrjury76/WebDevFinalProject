@@ -236,5 +236,42 @@ function queryCharacterById($username, $id) {
     return $character;
 }
 
+function updateCharacter($character) {
+    global $conn;
+
+    $id = $character['id'];
+    $username = $character['username'];
+    $name = $character['name'];
+    $level = $character['level'];
+    $class = $character['class'];
+    $race = $character['race'];
+    $strength = $character['str'];
+    $dexterity = $character['dex'];
+    $constitution = $character['con'];
+    $intelligence = $character['intc'];
+    $wisdom = $character['wis'];
+    $charisma = $character['cha'];
+
+    $sql = "UPDATE characters 
+            SET name = '$name', 
+                level = $level, 
+                class = '$class', 
+                race = '$race', 
+                str = $strength, 
+                dex = $dexterity, 
+                con = $constitution, 
+                intc = $intelligence, 
+                wis = $wisdom, 
+                cha = $charisma 
+            WHERE username = '$username' AND id = $id";
+
+    if (mysqli_query($conn, $sql)) {
+        return true;
+    } else {
+        echo "<script>console.error('Error updating character: " . mysqli_error($conn) . "');</script>";
+        return false;
+    }
+}
+
 
 ?>
