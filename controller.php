@@ -1,29 +1,21 @@
 <?php
-if (!empty($_COOKIE['username'])) { 
-    include 'home.php'; 
-} else {
-    include 'start.php';
-}
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (!isset($_POST['page'])) { 
-        include 'start.php'; 
+        include_once 'start.php'; 
         exit();
     } 
-
+    
     require_once 'model.php';
     $page = $_POST['page'];
     $command = $_POST['command'];
 
     switch ($page) {
-        case '':
-            // if (!empty($_COOKIE['username'])) { 
-            //     include 'home.php'; 
-            // } else {
-                include 'start.php';
-            // }
-            exit();
+        // case '':
+        //         include 'start.php';
+        //     exit();
 
         case 'StartPage':
             switch ($command) {
@@ -65,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 case 'Logout':
                     if (isset($_COOKIE['username'])) {
                         setcookie('username', $_COOKIE['username'], time() - 3600);
-                        session_unset();
-                        session_destroy(); 
+                        // session_unset();
+                        // session_destroy(); 
                         include 'start.php';
                         exit();
                     } else {
@@ -336,10 +328,27 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     }
 
                 case 'Update':
-                    $username = $_COOKIE['username'];
                     $id = $_POST['characterId'];
-                    $character = queryCharacterById($username, $id);
-                    updateCharacter($character);
+                    $username = $_COOKIE['username'];
+                    $name = $_POST['characterName'];
+                    $level = $_POST['level'];
+                    $class = $_POST['class'];
+                    $race = $_POST['race'];
+                    $strength = $_POST['Strength'];
+                    $dexterity = $_POST['Dexterity'];
+                    $constitution = $_POST['Constitution'];
+                    $intelligence = $_POST['Intelligence'];
+                    $wisdom = $_POST['Wisdom'];
+                    $charisma = $_POST['Charisma'];
+                    
+                    $character = updateCharacter($id, $name, $level, $class, $race, $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma);
+                    if (!empty($character)) {
+                        include 'editCharacter.php';
+                        exit();
+                    } else {
+                        echo json_encode(['status' => 'error', 'message' => 'No character found.']);
+                        exit();
+                    }
 
                 default:
                     echo "<p>Unknown command</p>";
@@ -349,6 +358,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         default:
             include 'start.php';
             exit();
+    }
+}
+else {
+    if(!isset($_COOKIE['username'])) {
+        include_once 'start.php';
+        exit();
+    } else {
+        include_once 'home.php';
+        exit();
     }
 }
 ?>
