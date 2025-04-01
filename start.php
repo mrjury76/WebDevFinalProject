@@ -1,10 +1,4 @@
-<?php 
-    if (isset ($_COOKIE['username'])){
-        include 'home.php';
-        exit();
-    }
-?>
-    
+   
 <!DOCTYPE html>
 <html lang="en">
 <head>

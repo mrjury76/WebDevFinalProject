@@ -1,11 +1,5 @@
-<?php 
-if(empty($_COOKIE['username'])) {
-    include 'index.php'; 
-    exit();
-}
-?>
 <header>
-        <div class="container">
+        <div class="container" style="z-index: 2;">
             <h1>D&D Interactive</h1>
             <form method="post" action="controller.php">
                 <input type="hidden" name="page" value="Header">

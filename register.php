@@ -41,14 +41,13 @@
     <script>
 
         $(document).ready(function() {
-            pass
             $('#submit').on('click', function(eobj) {
             let password = $('#password').val();
             let confirmPassword = $('#confirm_password').val();
             if (password !== confirmPassword) {
                 eobj.preventDefault();
                 alert('Passwords do not match!');
-                <?php include 'index.php'; ?>
+                <?php include 'start.php'; ?>
             }
             });
         });
