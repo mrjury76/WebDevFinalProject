@@ -14,10 +14,10 @@
     <?php include 'profile.php'?>
         <div class="bottom">
             <div>
-                <h1 id="index" style="width: 250px;">Welcome to D&D Character Creator</h1>
+                <h1 style="width: 250px;">Welcome to D&D Character Creator</h1>
                 <button class="character" id="create"     style="display: inline; height: 80px; width: 160px;">Character Creator</button>
                 <button class="character" id="showButton" style="display: inline; height: 80px; width: 160px;">View Characters</button>
-                <button class="character" id="deleteButton"     style="display: inline; height: 80px; width: 160px;">Delete Characters</button>
+                <button class="character" id="delete"     style="display: inline; height: 80px; width: 160px;">Delete Characters</button>
             </div>
             <form style="display: none;" id="createCharacter" action="controller.php" method="post">
                 <input type="hidden" name="page" value="Characters">
@@ -98,95 +98,75 @@
                         
                     </tr>
                     <tr>
-                        <th colspan="6" style="text-align: center;">
-                            <button type="submit" style="height: 80px; font-weight: bold; background-color: black">Create Character</button>    
-                        </th>
+                        <td colspan="6" style="text-align: center;">
+                            <button type="submit" style="height: 80px; font-weight: bold;">Create Character</button>    </td>
                     </tr>
                 </table>
             </form>
 
-            <div id="showDiv" style="display: none; width: 90%;"></div>
-
-            <form id="deleteCharacter" style="display: none;" action="controller.php" method="post">
-                <input type="hidden" name="page" value="Characters">
-                <input type="hidden" name="command" value="DeleteCharacter">
-                <label for="characterName">Character Name:</label>
-                <input type="text" id="characterName" name="characterName" required>
-                <div id="characterList"></div>
-                <button id="deleteSubmit" type="submit">Delete</button>
-            </form>
+            <div id="showDiv" style="display: none; margin-right: 10%; margin-left: 10%;"></div>
 
             </div>
         </div>
-        <?php include 'footer.php'?>
-    </body>
-    </html>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        let showCharacter = $('#showDiv');
-        let createCharacter = $('#createCharacter');
-        let deleteCharacter = $('#deleteCharacter');
-        let header = $('#index');
+    <?php include 'footer.php'?>
+</body>
+</html>
 
-        $('#deleteButton').on('click', function() {
-            if (deleteCharacter.css('display') === "none") {
-                header.text('Delete Character');
-                deleteCharacter.css('display', 'block');
-                createCharacter.css('display', 'none');
-                showCharacter.css('display', 'none');
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let showCharacter = $('#showDiv');
+    let createCharacter = $('#createCharacter');
+    $('#showButton').on('click', function() {
+        if(showCharacter.css('display') === "none") {
+            $('#createCharacter').css('display', 'none');
+            $.ajax({
+                url: 'controller.php',
+                type: 'POST',
+                data: { 
+                    page: 'Characters',
+                    command: 'ShowCharacter' },
+                success: function(data) {
+                    console.log("AJAX Success", data);
+                    displayCharacter(data);
+                },
                 
-            } else {
-                deleteCharacter.css('display', 'none');
-            }
-        });
-
-        $('#showButton').on('click', function() {
-            if(showCharacter.css('display') === "none") {
-                $('#createCharacter').css('display', 'none');
-                $('#deleteCharacter').css('display', 'none');
-                $.ajax({
-                    url: 'controller.php',
-                    type: 'POST',
-                    data: { 
-                        page: 'Characters',
-                        command: 'ShowCharacter' },
-                    success: function(data) {
-                        console.log("AJAX Success", data);
-                        displayCharacter(data);
-                    },
-
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error: " + error);
-                    }
-                }); 
-                header.text('Character Viewer');
-                showCharacter.css('display', 'block');
-            } else {
-                showCharacter.css('display', 'none');
-            }
-        });
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + error);
+                }
+            }); 
+            showCharacter.css('display', 'block');
+        } else {
+            showCharacter.css('display', 'none');
+        }
+    });
 
         $('#create').on('click', function() {
             if (createCharacter.css('display') === "none") {
                 showCharacter.css('display', 'none');
-                deleteCharacter.css('display', 'none');
-                header.text('Character Creator');
                 createCharacter.css('display', 'block');
-                
             } else {
                 createCharacter.css('display', 'none');
             }
         });
         
         
+        $('#delete').on('click', function() {
+            console.log("Button Clicked!");
+            let deleteCharacter = $('#deleteCharacter');
+            if (deleteCharacter.css('display') === "none") {
+                deleteCharacter.css('display', 'block');
+                
+            } else {
+                deleteCharacter.css('display', 'none');
+            }
+        });
 
             function displayCharacter(data) {
                 showCharacter.empty();
 
                 if (data.status === 'success') {
                     data.character.forEach(function(character) {
-                    let characterHtml = '<table style="border: 1px solid black; margin-bottom: 20px;">';
+                    let characterHtml = '<table class="character-table">';
                     characterHtml += '<tr><th colspan="3">Character Name:</th><td colspan="3">' + character.name + '</td></tr>';
                     characterHtml += '<tr><th colspan="3">Level:</th><td colspan="3">' + character.level + '</td></tr>';
                     characterHtml += '<tr><th colspan="3">Class:</th><td colspan="3">' + character.class + '</td></tr>';
@@ -209,12 +189,11 @@
                     characterHtml += '</tr>';
                     characterHtml += '</table>';
                     showCharacter.append(characterHtml);
-                    });
-                    
+                });
+            
                 } else {
                     $('#showDiv').html('<p>No characters found.</p>');
                 }
-            }
-        
+        }
 
 </script>
