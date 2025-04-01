@@ -317,9 +317,9 @@ if ($page === 'StartPage') {
 
     elseif ($page === 'EditCharacter') {
         switch ($command) {
-            case 'Edit':
+            case 'ShowCharacters':
                 $username = $_COOKIE['username'];
-                $character = queryCharacter($username);
+                $character = queryCharacterWithID($username);
                 if (!empty($character)) {
                     header('Content-Type: application/json');
                     echo json_encode(['status' => 'success', 'character' => $character]);
@@ -329,9 +329,25 @@ if ($page === 'StartPage') {
                     exit();
                 }
             
+            case 'EditCharacter':
+                $username = $_COOKIE['username'];
+                $characterId = $_POST['characterId'];
+                $character = queryCharacterById($username, $characterId);
+                if (!empty($character)) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['status' => 'success', 'character' => $character]);
+                    exit();
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'No character found.']);
+                    exit();
+                }
+
+            case 'Update':
+                $username = $_COOKIE['username'];
+
             default:
                 echo "<p>Unknown command</p>";
-                exit();
+            exit();
         }
     }
 
