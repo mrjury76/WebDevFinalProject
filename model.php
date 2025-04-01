@@ -206,6 +206,36 @@ function queryCharacterById($username, $id) {
     return $character;
 }
 
+function queryCharacterWithID($username) {
+    global $conn;
+
+    $sql = "SELECT * FROM characters WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        $character = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $character[] = [
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'level' => $row['level'],
+                'class' => $row['class'],
+                'race' => $row['race'],
+                'str' => $row['str'],
+                'dex' => $row['dex'],
+                'con' => $row['con'],
+                'intc' => $row['intc'],
+                'wis' => $row['wis'],
+                'cha' => $row['cha'],
+            ];
+        }
+    } else {
+        echo "<script>console.error('Error querying character: " . mysqli_error($conn) . "');</script>";
+    }
+        mysqli_close($conn);
+
+    return $character;
+}
+
 function updateCharacter($id, $name, $level, $class, $race, $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma) {
     global $conn;
     $username = $_COOKIE['username'];
